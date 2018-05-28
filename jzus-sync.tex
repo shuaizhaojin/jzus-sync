@@ -458,47 +458,47 @@ into contact with any of the synchronized static nodes.
 \subsection{Distributed Reference Election \& Synchronization}
 \label{sec:selection}
 
-\begin{figure}[t]
-   \centering
-   \begin{subfigure}[]{7.95cm}
-       \centering
-       \includegraphics[scale=0.35]{figs/illustration-1}
-   \end{subfigure}
-      \parbox{.8\columnwidth}
-      {\smallskip\scriptsize
-      Mobile node $m$ has no initial reference. Static node $r$ also
-      has no reference while static node $s$ has previously
-      synced with node $p$.\\}
-  \begin{subfigure}[]{7.95cm}
-      \centering
-      \includegraphics[scale=0.35]{figs/illustration-2}
-  \end{subfigure}
-      \parbox{.8\columnwidth}
-      {\smallskip\scriptsize
-      Node $m$ encounters node $r$, synchronizes with $r$ and
-      updates its reference to $P_r$.\\}
-  \begin{subfigure}[]{7.95cm}
-      \centering
-      \includegraphics[scale=0.35]{figs/illustration-3}
-  \end{subfigure}
-      \parbox{.8\columnwidth}
-      {\smallskip\scriptsize
-      Now $m$ leaves and encounters node $s$. Suppose $P_r'<P_s'$
-      and $P_s'<P_p$, node $m$ syncs with node $s$ and updates its
-      reference to $P_p$.\\}
-  \begin{subfigure}[b]{7.95cm}
-      \centering
-      \includegraphics[scale=0.35]{figs/illustration-4}
-  \end{subfigure}
-      \parbox{.8\columnwidth}
-      {\smallskip\scriptsize
-      Suppose now $m$ returns to node $r$, and suppose even after
-      updating $P_r''$, $P_r''<P_p$, then node $r$ will sync with $m$
-      and record $P_p$ as its reference. Now nodes $r$ and $s$ will be
-      in sync.\\}
-\caption{Reference node election.} 
-\label{fig:selection}
-\end{figure}
+%\begin{figure}[t]
+%   \centering
+%   \begin{subfigure}[b]{\columnwidth}
+%       \centering
+%       \includegraphics[scale=0.35]{figs/illustration-1}
+%   \end{subfigure}
+%      \parbox{.8\columnwidth}
+%      {\smallskip\scriptsize
+%      Mobile node $m$ has no initial reference. Static node $r$ also
+%      has no reference while static node $s$ has previously
+%      synced with node $p$.\\}
+%  \begin{subfigure}[b]{\columnwidth}
+%      \centering
+%      \includegraphics[scale=0.35]{figs/illustration-2}
+%  \end{subfigure}
+%      \parbox{.8\columnwidth}
+%      {\smallskip\scriptsize
+%      Node $m$ encounters node $r$, synchronizes with $r$ and
+%      updates its reference to $P_r$.\\}
+%  \begin{subfigure}[b]{\columnwidth}
+%      \centering
+%      \includegraphics[scale=0.35]{figs/illustration-3}
+%  \end{subfigure}
+%      \parbox{.8\columnwidth}
+%      {\smallskip\scriptsize
+%      Now $m$ leaves and encounters node $s$. Suppose $P_r'<P_s'$
+%      and $P_s'<P_p$, node $m$ syncs with node $s$ and updates its
+%      reference to $P_p$.\\}
+%  \begin{subfigure}[b]{\columnwidth}
+%      \centering
+%      \includegraphics[scale=0.35]{figs/illustration-4}
+%  \end{subfigure}
+%      \parbox{.8\columnwidth}
+%      {\smallskip\scriptsize
+%      Suppose now $m$ returns to node $r$, and suppose even after
+%      updating $P_r''$, $P_r''<P_p$, then node $r$ will sync with $m$
+%      and record $P_p$ as its reference. Now nodes $r$ and $s$ will be
+%      in sync.\\}
+%\caption{Reference node election.} 
+%\label{fig:selection}
+%\end{figure}
 
 \begin{table}[t]
    \centering
@@ -610,31 +610,31 @@ receiver's clock when the $i$th beacon was sent and received. The
 MAC-layer time-stamping technique was used to mitigate the variance of
 the delivery time~\citep{maroti2004flooding}.
 
-\begin{figure}[t]
-   \centering
-   \begin{subfigure}[b]{.32\textwidth}
-      \centering
-      \includegraphics{graphs/clock_skew_measure/skew_interval}
-      \caption{Mean and variance of clock skew measured at one node using different
-        time intervals.}
-      \label{fig:skew_int}
-   \end{subfigure}\hfill%
-   \begin{minipage}[b]{.32\textwidth}
-      \centering
-      \includegraphics{graphs/clock_skew_measure/fournodes_skew_1minute}
-      \caption{Clock skew measured at 1-min intervals between the sending node
-        receiving nodes.}
-      \label{fig:skew_minute}
-   \end{minipage}\hfill%
-   \begin{minipage}[b]{.32\textwidth}
-      \centering
-      \includegraphics{graphs/clock-drift-experiment/cdc}
-      \caption{Amount of clock drift between two nodes with and without clock drift compensation.}
-      \label{fig:skew_cdc}
-   \end{minipage}
-   \caption{Clock skew of the three receiving nodes.}
-   \label{fig:skew}
-\end{figure}
+%\begin{figure}[t]
+%   \centering
+%   \begin{subfigure}[b]{.32\textwidth}
+%      \centering
+%      \includegraphics{graphs/clock_skew_measure/skew_interval}
+%      \caption{Mean and variance of clock skew measured at one node using different
+%        time intervals.}
+%      \label{fig:skew_int}
+%   \end{subfigure}\hfill%
+%   \begin{minipage}[b]{.32\textwidth}
+%      \centering
+%      \includegraphics{graphs/clock_skew_measure/fournodes_skew_1minute}
+%      \caption{Clock skew measured at 1-min intervals between the sending node
+%        receiving nodes.}
+%      \label{fig:skew_minute}
+%   \end{minipage}\hfill%
+%   \begin{minipage}[b]{.32\textwidth}
+%      \centering
+%      \includegraphics{graphs/clock-drift-experiment/cdc}
+%      \caption{Amount of clock drift between two nodes with and without clock drift compensation.}
+%      \label{fig:skew_cdc}
+%   \end{minipage}
+%   \caption{Clock skew of the three receiving nodes.}
+%   \label{fig:skew}
+%\end{figure}
 
 
 
