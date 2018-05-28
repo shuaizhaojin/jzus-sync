@@ -1,0 +1,17 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Related Work}{}% 2
+\BOOKMARK [1][-]{section.3}{A Case for Slot Index Synchronization}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Tourist Tracking in Historical Sites}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Slot Index Synchronization}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Distributed Synchronization Not Feasible}{section.3}% 6
+\BOOKMARK [1][-]{section.4}{Mobility-Assisted Slot Synchronization}{}% 7
+\BOOKMARK [2][-]{subsection.4.1}{Distributed Reference Election \046 Synchronization}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.2}{Clock Drift Compensation \046 Slot Synchronization}{section.4}% 9
+\BOOKMARK [1][-]{section.5}{Paper format}{}% 10
+\BOOKMARK [2][-]{subsection.5.1}{Preparing manuscript}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.2}{Revision \046 acceptance}{section.5}% 12
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Figures}{subsection.5.2}% 13
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Tables}{subsection.5.2}% 14
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Variables and formulate}{subsection.5.2}% 15
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Theorem, algorithm, and other environments}{subsection.5.2}% 16
+\BOOKMARK [3][-]{subsubsection.5.2.5}{References \046 text citation}{subsection.5.2}% 17
