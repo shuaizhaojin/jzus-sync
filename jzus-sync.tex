@@ -5,12 +5,17 @@
 \def\@oddhead{\mbox{}\scriptsize\rightmark \hfil \thepage}%
 \usepackage{fitee}
 \usepackage{tabularx, multirow}
-\usepackage{graphicx,subfigure}
+\usepackage{graphicx}
+\usepackage{subfigure}
 %\usepackage[colorlinks, breaklinks = true]{hyperref}		% for pdflatex
 \usepackage[dvips, hidelinks, breaklinks = true]{hyperref}  % for DVI to PDF latex
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{#1}}}
 \addto{\captionsenglish}{%
   \renewcommand{\figurename}{Fig.}
 }
+
+%\usepackage[labelformat=simple,font=footnotesize]{subcaption}
+%\renewcommand\thesubfigure{(\alph{subfigure})}	% Put parens around subfig ref
 
 \begin{document}
 
@@ -371,9 +376,9 @@ with the lowest average-case and worst-case latency.
       & \multicolumn{7}{c}{\bf\scriptsize 1\% Duty-cycle, 5\,ms per slot} \\[-2pt]
       \cmidrule[.5pt](l){2-8}
       Searchlight-S   & 4,711 [23.56] & 9,999 [50.00]  & 65.7 [0.33] & 197 [0.99] & 71.70 & 50.76 & 200\\
-      BlindDate       & 6,387 [31.94] & 17,821 [89.11]  & 71.4 [0.36] & 238 [1.19] & 89.45 & 74.88 & 60\\
-      Disco           & 10,125 [50.63] & 35,655 [178.28] & 64.1 [0.32] & 180 [0.90] & 157.96  & 198.08  & (181, 211)\\
-      U-Connect       & 11,123 [55.62] & 22,800 [114.00] & 74.6 [0.37] & 150 [0.75] & 149.10  & 152.00  & 151\\
+      BlindDate       & 6,387 [31.94] & 17,821 [89.1]  & 71.4 [0.36] & 238 [1.19] & 89.45 & 74.88 & 60\\
+      Disco           & 10,125 [50.6] & 35,655 [178] & 64.1 [0.32] & 180 [0.90] & 157.96  & 198.08  & (181, 211)\\
+      U-Connect       & 11,123 [55.6] & 22,800 [114] & 74.6 [0.37] & 150 [0.75] & 149.10  & 152.00  & 151\\
       \bottomrule
   \end{tabularx}
 \end{table*}
@@ -458,49 +463,49 @@ into contact with any of the synchronized static nodes.
 \subsection{Distributed Reference Election \& Synchronization}
 \label{sec:selection}
 
-%\begin{figure}[t]
-%   \centering
-%   \begin{subfigure}[b]{\columnwidth}
-%       \centering
-%       \includegraphics[scale=0.35]{figs/illustration-1}
-%   \end{subfigure}
-%      \parbox{.8\columnwidth}
-%      {\smallskip\scriptsize
-%      Mobile node $m$ has no initial reference. Static node $r$ also
-%      has no reference while static node $s$ has previously
-%      synced with node $p$.\\}
-%  \begin{subfigure}[b]{\columnwidth}
-%      \centering
-%      \includegraphics[scale=0.35]{figs/illustration-2}
-%  \end{subfigure}
-%      \parbox{.8\columnwidth}
-%      {\smallskip\scriptsize
-%      Node $m$ encounters node $r$, synchronizes with $r$ and
-%      updates its reference to $P_r$.\\}
-%  \begin{subfigure}[b]{\columnwidth}
-%      \centering
-%      \includegraphics[scale=0.35]{figs/illustration-3}
-%  \end{subfigure}
-%      \parbox{.8\columnwidth}
-%      {\smallskip\scriptsize
-%      Now $m$ leaves and encounters node $s$. Suppose $P_r'<P_s'$
-%      and $P_s'<P_p$, node $m$ syncs with node $s$ and updates its
-%      reference to $P_p$.\\}
-%  \begin{subfigure}[b]{\columnwidth}
-%      \centering
-%      \includegraphics[scale=0.35]{figs/illustration-4}
-%  \end{subfigure}
-%      \parbox{.8\columnwidth}
-%      {\smallskip\scriptsize
-%      Suppose now $m$ returns to node $r$, and suppose even after
-%      updating $P_r''$, $P_r''<P_p$, then node $r$ will sync with $m$
-%      and record $P_p$ as its reference. Now nodes $r$ and $s$ will be
-%      in sync.\\}
-%\caption{Reference node election.} 
-%\label{fig:selection}
-%\end{figure}
+\begin{figure}[t]
+   \centering
+   \begin{subfigure}
+       \centering
+       \includegraphics[scale=0.35]{figs/illustration-1}
+   \end{subfigure}
+      \parbox{.8\columnwidth}
+      {\smallskip\scriptsize
+      Mobile node $m$ has no initial reference. Static node $r$ also
+      has no reference while static node $s$ has previously
+      synced with node $p$.\\}
+  \begin{subfigure}
+      \centering
+      \includegraphics[scale=0.35]{figs/illustration-2}
+  \end{subfigure}
+      \parbox{.8\columnwidth}
+      {\smallskip\scriptsize
+      Node $m$ encounters node $r$, synchronizes with $r$ and
+      updates its reference to $P_r$.\\}
+  \begin{subfigure}
+      \centering
+      \includegraphics[scale=0.35]{figs/illustration-3}
+  \end{subfigure}
+      \parbox{.8\columnwidth}
+      {\smallskip\scriptsize
+      Now $m$ leaves and encounters node $s$. Suppose $P_r'<P_s'$
+      and $P_s'<P_p$, node $m$ syncs with node $s$ and updates its
+      reference to $P_p$.\\}
+  \begin{subfigure}
+      \centering
+      \includegraphics[scale=0.35]{figs/illustration-4}
+  \end{subfigure}
+      \parbox{.8\columnwidth}
+      {\smallskip\scriptsize
+      Suppose now $m$ returns to node $r$, and suppose even after
+      updating $P_r''$, $P_r''<P_p$, then node $r$ will sync with $m$
+      and record $P_p$ as its reference. Now nodes $r$ and $s$ will be
+      in sync.\\}
+  \caption{Reference node election.} 
+  \label{fig:selection}
+\end{figure}
 
-\begin{table}[t]
+\begin{table}[t]\scriptsize
    \centering
    \caption{Summary of update rules for reference node election}
       %\vspace{-6pt}
@@ -508,8 +513,8 @@ into contact with any of the synchronized static nodes.
      \toprule
      Condition & Static node & Mobile node \\
      \midrule
-     $P_{m} > P_{s}$ and $P_{m} > P_{s.ref}$ & $P_{s.ref} \leftarrow P_m$ & No Change \\
-     $P_{m} < P_{s}$ or $P_{m} < P_{s.ref}$ & No Change & $P_m \leftarrow \textrm{max}(P_s, P_{s.ref})$ \\
+     $P_{m}>P_{s}$ and $P_{m}>P_{s.ref}$ & $P_{s.ref} \leftarrow P_m$ & No Change \\
+     $P_{m}<P_{s}$ or $P_{m}<P_{s.ref}$ & No Change & $P_m \leftarrow \textrm{max}(P_s, P_{s.ref})$ \\
      \bottomrule
    \end{tabularx}
    \label{tab:priority}
@@ -584,6 +589,39 @@ could be used. However, our reference election algorithm is still
 applicable if a good metric can be found.
 
 \subsection{Clock Drift Compensation \& Slot Synchronization}
+\label{sec:clock-drift}
+
+\begin{figure*}[t]
+   \centering
+   \subfigure[Mean and variance of clock skew measured at one node using different
+   time intervals]{
+       \centering
+       \begin{minipage}[t]{0.32\textwidth}
+          \includegraphics[scale=0.85]{graphs/clock_skew_measure/skew_interval}
+          %\caption{Mean and variance of clock skew measured at one node using different
+	      %time intervals.}
+          \label{fig:skew_int}
+       \end{minipage}}
+   \subfigure[Clock skew measured at 1-min intervals between the sending node and
+   receiving nodes]{
+       \begin{minipage}[t]{0.32\textwidth}
+          \centering
+          \includegraphics[scale=0.85]{graphs/clock_skew_measure/fournodes_skew_1minute}
+          %\caption{Clock skew measured at 1-min intervals between the sending node
+         %receiving nodes.}
+          \label{fig:skew_minute}
+       \end{minipage}}
+   \subfigure[Amount of clock drift between two ndoes with and without clock drift compensation]{
+       \begin{minipage}[t]{0.32\textwidth}
+          \centering
+          \includegraphics[scale=0.85]{graphs/clock-drift-experiment/cdc}
+          %\caption{Amount of clock drift between two nodes with and without clock drift compensation.}
+          \label{fig:skew_cdc}
+       \end{minipage}}
+   \caption{Clock skew of the three receiving nodes.}
+   \label{fig:skew}
+\end{figure*}
+
 
 Once a reference node is elected, each node will synchronize their
 clocks to that reference node. However, clock drift will introduce
@@ -609,32 +647,6 @@ where $t^A_i$ and $t^B_i$ are the local time at the sender's and
 receiver's clock when the $i$th beacon was sent and received. The
 MAC-layer time-stamping technique was used to mitigate the variance of
 the delivery time~\citep{maroti2004flooding}.
-
-%\begin{figure}[t]
-%   \centering
-%   \begin{subfigure}[b]{.32\textwidth}
-%      \centering
-%      \includegraphics{graphs/clock_skew_measure/skew_interval}
-%      \caption{Mean and variance of clock skew measured at one node using different
-%        time intervals.}
-%      \label{fig:skew_int}
-%   \end{subfigure}\hfill%
-%   \begin{minipage}[b]{.32\textwidth}
-%      \centering
-%      \includegraphics{graphs/clock_skew_measure/fournodes_skew_1minute}
-%      \caption{Clock skew measured at 1-min intervals between the sending node
-%        receiving nodes.}
-%      \label{fig:skew_minute}
-%   \end{minipage}\hfill%
-%   \begin{minipage}[b]{.32\textwidth}
-%      \centering
-%      \includegraphics{graphs/clock-drift-experiment/cdc}
-%      \caption{Amount of clock drift between two nodes with and without clock drift compensation.}
-%      \label{fig:skew_cdc}
-%   \end{minipage}
-%   \caption{Clock skew of the three receiving nodes.}
-%   \label{fig:skew}
-%\end{figure}
 
 In Figure~\ref{fig:skew_int}, we plot the average estimated relative
 clock skew and the standard deviation in parts per million (ppm) for
@@ -677,31 +689,33 @@ such synchronized pairs of nodes will overlap.
 \subsection{Mitigating the Pitfalls of Small Synchronization Errors}
 \label{subsec:pitfall}
 
-%\begin{figure}[t]
-%   \hfill
-%   \begin{subfigure}[t]{0.3\columnwidth}
-%        \centering
-%        \includegraphics[scale=0.42]{figs/searchlight}
-%        \caption{Searchlight-S}
-%        \label{fig:searchlight}
-%   \end{subfigure}\hfill
-%   \begin{subfigure}[t]{0.3\columnwidth}
-%        \centering
-%	\includegraphics[scale=0.42]{figs/searchlight+1}
-%	\caption{Searchlight-S+1}
-%	\label{fig:searchlight+1}
-%   \end{subfigure}\hfill
-%   \begin{subfigure}[t]{0.3\columnwidth}
-%        \centering
-%        \includegraphics[scale=0.42]{figs/searchlight-1}
-%        \caption{Searchlight-S+1/2}
-%        \label{fig:searchlight+1/2}
-%   \end{subfigure}
-%   \hfill
-%   \caption{Additional active slots to the Searchlight-S protocol with
-%      $p=12$.}
-%   \label{fig:searchlights}
-%\end{figure}
+\begin{figure}[t]\footnotesize
+   \hfill
+   \subfigure[Searchlight-S]{
+        \centering
+	\begin{minipage}[b]{0.3\columnwidth}
+           \includegraphics[width=1\textwidth]{figs/searchlight}
+	   \label{fig:searchlight}
+	\end{minipage}}
+   \hfill
+   \subfigure[Searchlight-S+1]{
+        \centering
+	\begin{minipage}[b]{0.3\columnwidth}
+	   \includegraphics[width=1\textwidth]{figs/searchlight+1}
+	   \label{fig:searchlight+1}
+        \end{minipage}}
+   \hfill
+   \subfigure[Searchlight-S+1/2]{
+        \centering
+	\begin{minipage}[b]{0.3\columnwidth}
+           \includegraphics[width=1\textwidth]{figs/searchlight-1}
+           \label{fig:searchlight+1/2}
+	\end{minipage}}
+   \hfill
+   \caption{Additional active slots to the Searchlight-S protocol with
+      $p=12$.}
+   \label{fig:searchlights}
+\end{figure}
 
 Even with clock drift compensation, we cannot guarantee perfect
 synchronization all the time. It turns out to be a big problem that
@@ -727,11 +741,11 @@ possible way to reduce this additional delay is to halve the number of
 extra active slots by only introducing them every 2 sub-cycles (See
 Figure~\ref{fig:searchlight+1/2}). We call this modified scheme {\em Searchlight+1/2}.
 
-\begin{table}[t]
+\begin{table}[t]\footnotesize
    \centering
    \caption{Combined latencies of the modified Searchlight protocols
        for cycles offset by 0 and 1 at 5\% duty-cycle.}
-   \vspace{-6pt}
+   %\vspace{-6pt}
    \begin{tabularx}{\columnwidth}{@{}l *{6}{>{\centering\arraybackslash}X}@{}}
       \toprule
       & \multicolumn{2}{c}{Searchlight-S} & \multicolumn{2}{c}{Searchlight-S+1} & \multicolumn{2}{c}{Searchlight-S+1/2} \\
@@ -801,6 +815,69 @@ assigned a unique ID.
 
 \subsection{Power Conservation and Latency Reduction}
 
+\begin{figure*}[t]
+    \centering
+    \subfigure[5\% duty cycle and 25\,ms slot size.]{
+        \begin{minipage}[b]{0.33\textwidth}
+          \centering
+          %\includegraphics{graphs/A_C_together_break-25ms-5/a_c_break-25ms-5-orig}
+	  \includegraphics[scale=0.85]{graphs/one-month-result/august-25ms-5-orig}
+          %\caption{5\% duty cycle and 25\,ms slot size.}
+          \label{fig:a_c_break-25ms-5-orig}
+	\end{minipage}}%
+    \subfigure[1\% duty cycle and 25\,ms slot size.]{
+        \begin{minipage}[b]{0.33\textwidth}
+          \centering
+          %\includegraphics{graphs/A_C_together_break-25ms-1/a_c_break-25ms-1-orig}
+	  \includegraphics[scale=0.85]{graphs/one-month-result/august-25ms-1-orig}
+	  %\caption{1\% duty cycle and 25\,ms slot size.}
+	  \label{fig:a_c_break-25ms-1-orig} 
+	\end{minipage}}%
+    \subfigure[Duration of mobile nodes stay in caves]{
+        \begin{minipage}[b]{0.33\textwidth}
+          \centering
+          %\includegraphics{graphs/duration_cdf/cdf_together_duration}
+	  \includegraphics[scale=0.85]{graphs/one-month-result/cdf_august_duration}
+          %\caption{Duration of mobile nodes stay in caves} 
+          \label{fig:cdf_duration}
+	\end{minipage}}
+    \caption{Impact of reducing duty cycle from 5\% to 1\% for
+       Birthday, BlindDate, Disco, Searchlight and U-Connect.}
+    \label{fig:break-orig}
+\end{figure*}
+
+\begin{figure*}[t]
+    \centering
+    \subfigure[No synchronization]{
+        \begin{minipage}[b]{0.33\textwidth}
+           \centering
+           %\includegraphics{graphs/A_C_together_break-5ms-1/a_c_break-5ms-1-orig}
+	   \includegraphics[scale=0.85]{graphs/one-month-result/august-5ms-1-orig}
+           %\caption{No synchronization.}
+           \label{fig:a_c_break-5ms-1-orig}
+        \end{minipage}}%
+    \subfigure[With DCS]{
+        \begin{minipage}[b]{0.33\textwidth}
+           \centering
+           %\includegraphics{graphs/A_C_together_break-5ms-1/a_c_break-5ms-1-dcs}
+           \includegraphics[scale=0.85]{graphs/one-month-result/august-5ms-1-dcs}
+           %\caption{With DCS.}
+           \label{fig:a_c_break-5ms-1-dcs} 
+        \end{minipage}}%
+    \subfigure[With MASS]{
+        \begin{minipage}[b]{0.33\textwidth}
+           \centering
+           %\includegraphics{graphs/A_C_together_break-5ms-1/a_c_break-5ms-1-syn}
+           \includegraphics[scale=0.85]{graphs/one-month-result/august-5ms-1-syn}
+           %\caption{With MASS.}
+           \label{fig:a_c_break-5ms-1-syn}
+        \end{minipage}}
+    \caption{Discovery latency of each protocols and MASS and DCS
+        assisted versions at 1\% duty cycle and 5\,ms slot size.}
+    \label{fig:break-compare}
+\end{figure*}
+
+
 In neighbor discovery protocols, the power saving is determined by the
 duty cycle, which is the proportion of time that a node stays
 active. The typical duty cycles used in these protocols are 1\% and
@@ -840,62 +917,6 @@ Figure~\ref{fig:a_c_break-5ms-1-orig}. We see that as expected, the
 discovery latency improves, but the latency increases to almost 5
 times that of the original as in Figure~\ref{fig:a_c_break-25ms-5-orig}.
 
-%\begin{figure*}[t]
-%    \centering
-%    \begin{subfigure}[b]{0.33\textwidth}
-%        \centering
-%        %\includegraphics{graphs/A_C_together_break-25ms-5/a_c_break-25ms-5-orig}
-%        \includegraphics{graphs/one-month-result/august-25ms-5-orig}
-%        \caption{5\% duty cycle and 25\,ms slot size.}
-%        \label{fig:a_c_break-25ms-5-orig}
-%    \end{subfigure}%
-%    \begin{subfigure}[b]{0.33\textwidth}
-%        \centering
-%        %\includegraphics{graphs/A_C_together_break-25ms-1/a_c_break-25ms-1-orig}
-%	\includegraphics{graphs/one-month-result/august-25ms-1-orig}
-%	\caption{1\% duty cycle and 25\,ms slot size.}
-%	\label{fig:a_c_break-25ms-1-orig} 
-%    \end{subfigure}%
-%    \begin{subfigure}[b]{0.33\textwidth}
-%        \centering
-%        %\includegraphics{graphs/duration_cdf/cdf_together_duration}
-%        \includegraphics{graphs/one-month-result/cdf_august_duration}
-%        \caption{Duration of mobile nodes stay in caves} 
-%        \label{fig:cdf_duration}
-%    \end{subfigure}
-%    \caption{Impact of reducing duty cycle from 5\% to 1\% for
-%       Birthday, BlindDate, Disco, Searchlight and U-Connect.}
-%    \label{fig:break-orig}
-%\end{figure*}
-%
-%\begin{figure*}[t]
-%    \centering
-%    \begin{subfigure}[b]{0.33\textwidth}
-%        \centering
-%        %\includegraphics{graphs/A_C_together_break-5ms-1/a_c_break-5ms-1-orig}
-%        \includegraphics{graphs/one-month-result/august-5ms-1-orig}
-%        \caption{No synchronization.}
-%        \label{fig:a_c_break-5ms-1-orig}
-%    \end{subfigure}%
-%    \begin{subfigure}[b]{0.33\textwidth}
-%        \centering
-%        %\includegraphics{graphs/A_C_together_break-5ms-1/a_c_break-5ms-1-dcs}
-%        \includegraphics{graphs/one-month-result/august-5ms-1-dcs}
-%        \caption{With DCS.}
-%        \label{fig:a_c_break-5ms-1-dcs} 
-%    \end{subfigure}
-%    \begin{subfigure}[b]{0.33\textwidth}
-%        \centering
-%        %\includegraphics{graphs/A_C_together_break-5ms-1/a_c_break-5ms-1-syn}
-%        \includegraphics{graphs/one-month-result/august-5ms-1-syn}
-%        \caption{With MASS.}
-%        \label{fig:a_c_break-5ms-1-syn}
-%    \end{subfigure}%
-%    \caption{Discovery latency of each protocols and MASS and DCS
-%        assisted versions at 1\% duty cycle and 5\,ms slot size.}
-%    \label{fig:break-compare}
-%\end{figure*}
-
 {\bf Adding Synchronization}. Next, we investigated how
 synchronization would improve discovery latency. We repeated the
 simulation with a duty cycle of 1\% and a slot size of 5\,ms after
@@ -910,10 +931,25 @@ marginal. This is because DCS is not able to converge sufficiently
 fast in our scenario. For MASS, the discovery latency for the same
 protocols was reduced to less than one second about 75\% of the time,
 which suggests that most of the nodes were successfully
-synchronized. The worst-case latency, however, remained the same,
-likely because either some nodes could not be synchronized such as
-cave 12 and 29, or they had to be re-synchronized at the start of each
-day.
+synchronized. 
+
+\begin{figure}[t]
+   \centering
+   \includegraphics[scale=0.9]{graphs/reference_selection/515}
+   \caption{Convergence of reference nodes for the first day} 
+   \label{fig:converge-515}
+\end{figure}
+
+However, even with MASS, the worst-case latency remained the same.
+The reason is either some nodes could not be synchronized such as
+cave 12 and 29, or they had to be re-synchronized at the start of 
+each day. Fig.~\ref{fig:converge-515} shows the convergence speed
+for MASS where a dot on the graph indicates that the static node
+has not synchronized with the reference node. We can see that with
+tourists visiting the static nodes gradually synchronize with the
+static nodes deployed in cave 100 while cave 12 and 29 can not be
+synchronized. The reason is that cave 12 and 29 are usually the 
+first caves visited.
 
 The reduction in discovery latency is important for our tourist
 tracking application because our goal is to accurately track the
@@ -924,6 +960,43 @@ reducing the discovery latency to less than 1\,s, we can improve the
 estimation accuracy by more than 20 times.
 
 \subsection{Performance gains using MASS}
+
+\begin{figure}[t]
+   \centering
+   \includegraphics{graphs/protocols_improvement/improve}
+   \caption{Improvement for various protocols with MASS
+      under different duty cycles with 5\,ms slot size.}
+   \label{fig:improve}
+\end{figure}
+
+
+\begin{figure*}[t]
+   \minipage[t]{0.3\textwidth}
+   \centering
+   \vspace{0pt}
+   \includegraphics[scale=0.85]{graphs/one-month-result/august-low-syn}
+   \caption{Distribution of discovery latency of Searchlight-S with
+      MASS at very low duty cycles.}
+   \label{fig:small}
+   \endminipage\hfill
+   \minipage[t]{0.33\textwidth}
+   \centering
+   \vspace{0pt} 
+   \includegraphics[scale=0.85]{graphs/one-month-result/august-5ms-1-anc-searchlight-strip}
+   \caption{Distribution of discovery latency for Searchlight-S
+        without clock drift compensation under 1\% duty cycle and 5\,ms
+        slot size.}
+   \label{fig:a_nc_break-5ms-1-searchlight}
+   \endminipage\hfill
+   \minipage[t]{0.3\textwidth}
+   \centering
+   \vspace{0pt} % anchor for minipage to align
+   \includegraphics[scale=0.85]{graphs/one-month-result/august-random-5ms-1}
+   \caption{Distribution of discovery latency with random routes.} 
+   \label{fig:a_c_random-5ms-1}
+   \endminipage\hfill
+\end{figure*}
+
 
 As the duty cycle affects the discovery latency of neighbor discovery
 protocols, we plot the percentage improvement of the average discovery
@@ -962,14 +1035,6 @@ than our slot size of 5\,ms. This would suggest that clock drift
 compensation is essential to ensure the synchronization among the
 nodes.
 
-\begin{figure}[t]
-   \centering
-   \includegraphics{graphs/protocols_improvement/improve}
-   \caption{Improvement for various protocols with MASS
-      under different duty cycles with 5\,ms slot size.}
-   \label{fig:improve}
-\end{figure}
-
 To validate this intuition, we repeated our experiments without clock
 drift compensation and compared MASS and DCS using the Searchlight-S
 protocol in Figure~\ref{fig:a_nc_break-5ms-1-searchlight}.  As
@@ -979,32 +1044,6 @@ are observed for the other neighbor discovery protocols.  This
 demonstrates that clock drift compensation is essential to maintain
 the synchronicity among the nodes.
 
-%\begin{figure*}[t]
-%   \minipage[t]{0.3\textwidth}
-%   \centering
-%   \vspace{0pt}
-%   \includegraphics{graphs/one-month-result/august-low-syn}
-%   \caption{Distribution of discovery latency of Searchlight-S with
-%      MASS at very low duty cycles.}
-%   \label{fig:small}
-%   \endminipage\hfill
-%   \minipage[t]{0.33\textwidth}
-%   \centering
-%   \vspace{0pt} 
-%   \includegraphics{graphs/one-month-result/august-5ms-1-anc-searchlight-strip}
-%   \caption{Distribution of discovery latency for Searchlight-S
-%        without clock drift compensation under 1\% duty cycle and 5\,ms
-%        slot size.}
-%   \label{fig:a_nc_break-5ms-1-searchlight}
-%   \endminipage\hfill
-%   \minipage[t]{0.3\textwidth}
-%   \centering
-%   \vspace{0pt} % anchor for minipage to align
-%   \includegraphics{graphs/one-month-result/august-random-5ms-1}
-%   \caption{Distribution of discovery latency with random routes.} 
-%   \label{fig:a_c_random-5ms-1}
-%   \endminipage\hfill
-%\end{figure*}
 
 \subsection{Random Traces}
 
@@ -1026,6 +1065,73 @@ for a prolonged period of time. This highlights that the selection of
 the metric is a key factor that affects the overall performance for
 MASS in docking applications.
 
+\section{Experiments in a Mock-up Scenario}
+\label{sec:mock-up}
+
+We have proved in the simulation experiment that with MASS, the discovery
+latency of existing neighbor discovery protocols can be greatly improved.
+However, it is not clear how it will perform on a real sensor network.
+It is difficult and unrealistic to do such experiments at Mogao Grottoes,
+since the current system is running and a sudden break is not allowed.
+Thus we design a similar scenario to verify the performance of the proposed
+MASS.
+
+\subsection{Hardware Platform}
+\begin{figure}[t]
+   \centering
+   \includegraphics[width=.7\columnwidth]{static/sensor}
+   \caption{Custom sensor platform}
+   \label{fig:node}
+\end{figure}
+
+We use the same hardware platform in experiments as the nodes deployed
+at Mogao Grottoes (shown in Fig.~\ref{fig:node}). The sensor node 
+consists of a 32-bit ARM Cortex-M3 MCU and a low-power IEEE-compatible
+radio transceiver AT86RF212 operating at 700/800/900 MHz with the 
+transmission rate from 20 to 250~kbps. The distinguish feature of sensor 
+nodes is the low power property, with the working and sleeping current 
+30 mA and 1.2 $\mu$A respectively. A rechargeable 3.7V Li-Polymer battery
+is used to power the sensor node.
+
+\subsection{Experimental Setup}
+To simulate the tourists tracking system at Mogao Grottoes, we conduct
+the experiments on the third floor in a industrial park in Hangzhou.
+We choose 10 rooms and put one static node in each room. Then we invite 
+volunteers to carry mobile nodes moving through different rooms based 
+on a predefined moving pattern. The moving pattern is randomly produced
+following the moving pattern at Mogao Grottoes including the sequence
+of rooms and the staying time in each room. 
+
+To compute the discovery latency, i.e., the time interval from mobile
+nodes coming into the communication range of static nodes (entering
+time) to the time they discovered each other, we design an additional 
+kind of nodes called listening nodes. Listening nodes works together 
+with the mobile nodes and record the entering time, i.e., the time
+information contained in the first beacon received from static nodes.
+Based on the entering time recorded on listening nodes and the discovered
+time recorded on the mobile nodes, the corresponding discovery latency
+can be computed offline.
+
+\subsection{Clock Skew Compensation Interval}
+
+The performance of proposed MASS is greatly affected by the accuracy of
+clock skew compensation. Based on the obtained relative clock skew (as 
+described in Sec.~\ref{sec:clock-drift}), we can get how much the active
+slots of two nodes will drift after a period of time. And it is more
+important to set an appropriate compensation interval to achieve the 
+best performance. The compensation interval cannot be too small or big.
+The error will be too large with a small interval, while the slot index
+will not keep synchronized with a too large interval.
+
+\todo{find ways to show the compensation interval selected.}
+
+\subsection{Latency Reduction}
+To investigate how MASS performs in reducing discovery latency, we
+adopted the state-of-the-art Searchlight with 1\% duty cycle and 
+5~ms slot size. The experiments last three continuous days and there
+are totally 300 discovery records. As comparison, the volunteers carry 
+listening nodes and mobile nodes running with and without MASS following 
+the same moving pattern.
 
 \section{Conclusion}
 \label{sec:conclusion}
