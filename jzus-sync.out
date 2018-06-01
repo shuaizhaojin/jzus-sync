@@ -15,7 +15,6 @@
 \BOOKMARK [2][-]{subsection.5.4}{Random Traces}{section.5}% 15
 \BOOKMARK [1][-]{section.6}{Experiments in a Mock-up Scenario}{}% 16
 \BOOKMARK [2][-]{subsection.6.1}{Hardware Platform}{section.6}% 17
-\BOOKMARK [2][-]{subsection.6.2}{Experimental Setup}{section.6}% 18
-\BOOKMARK [2][-]{subsection.6.3}{Clock Skew Compensation Interval}{section.6}% 19
-\BOOKMARK [2][-]{subsection.6.4}{Latency Reduction}{section.6}% 20
-\BOOKMARK [1][-]{section.7}{Conclusion}{}% 21
+\BOOKMARK [2][-]{subsection.6.2}{MASS Operation and Implementation}{section.6}% 18
+\BOOKMARK [2][-]{subsection.6.3}{Latency Reduction in Mock-up Scenario}{section.6}% 19
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 20

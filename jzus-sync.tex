@@ -539,7 +539,7 @@ the mobile node has last synchronized with. On the other hand, if
 $P_m$ is smaller than $P_s$ or $P_{s.ref}$, the mobile node will
 synchronize its slot index with the static node.  It will also
 set its reference $P_m$ to the larger of $P_s$ and $P_{s.ref}$.
-Figure~\ref{fig:selection} illustrates the steps of this process and
+Fig.~\ref{fig:selection} illustrates the steps of this process and
 Table~\ref{tab:priority} summarizes the above update rules. With this
 simple algorithm, the node with the largest priority value will be
 elected as the reference node, from which other nodes will take
@@ -648,16 +648,16 @@ receiver's clock when the $i$th beacon was sent and received. The
 MAC-layer time-stamping technique was used to mitigate the variance of
 the delivery time~\citep{maroti2004flooding}.
 
-In Figure~\ref{fig:skew_int}, we plot the average estimated relative
+In Fig.~\ref{fig:skew_int}, we plot the average estimated relative
 clock skew and the standard deviation in parts per million (ppm) for
 beacon intervals from 1\,s to 120\,s. We found that a larger beacon
 interval leads to a more accurate and stable estimation.  In
-Figure~\ref{fig:skew_minute}, we plot the relative clock skew between
+Fig.~\ref{fig:skew_minute}, we plot the relative clock skew between
 the sending node and the three receiving nodes with the beacon
 interval of 60\,s over a few hours.  We observed that the three
 receiving nodes can reliably detect and measure their relative clock
 skew against the sending node with an error within 1.5\,ppm. In
-Figure~\ref{fig:skew_cdc}, we plot the time difference between the
+Fig.~\ref{fig:skew_cdc}, we plot the time difference between the
 clocks of two nodes with and without clock drift compensation, which
 suggests that it is possible to estimate and compensate for the clock
 drift in our system.
@@ -671,10 +671,10 @@ worked well for our sensor hardware.
 
 From our Mogao Grottoes traces, tourists (and therefore the mobile
 nodes) will typically stay in each cave for more than 120\,s
-(see~Figure\ref{fig:cdf_duration}), which as Figure~\ref{fig:skew_int}
+(see~Fig.\ref{fig:cdf_duration}), which as Fig.~\ref{fig:skew_int}
 suggests, is sufficiently long to get a good estimate of the clock
 skew. Since the average inter-arrival time of the mobile nodes at each
-cave is less than 18 minutes (see Figure~\ref{fig:visitingfrequency}),
+cave is less than 18 minutes (see Fig.~\ref{fig:visitingfrequency}),
 the expected clock drift during this interval is within one slot
 (5\,ms) with clock drift compensation.
 
@@ -729,17 +729,17 @@ to the duty-cycle pattern for the neighbor discovery protocol by
 adding an extra number of active slots. We illustrate this with
 Searchlight-S.  In Searchlight-S, nodes wake up at every $p$ slots and
 a probe slot traverses from the first position to $p/2$ across $p/2$
-sub-cycles (see Figure~\ref{fig:searchlight}), resulting in a period
+sub-cycles (see Fig.~\ref{fig:searchlight}), resulting in a period
 of $p(p/2)$. To prevent the worst-case latency from occurring when the
 cycles of two nodes have an offset of 2, we set the node to wake up at
-every $kp+2$ slots (see Figure~\ref{fig:searchlight+1}). We call this
+every $kp+2$ slots (see Fig.~\ref{fig:searchlight+1}). We call this
 scheme {\em Searchlight+1}. With the additional active slots, the duty
 cycle of Searchlight+1 will be $1.5$ times that of Searchlight with
 the same $p$. To keep the duty-cycle constant, $p$ has to be increased
 by $1.5$ times, thereby incurring a slightly larger latency. One
 possible way to reduce this additional delay is to halve the number of
 extra active slots by only introducing them every 2 sub-cycles (See
-Figure~\ref{fig:searchlight+1/2}). We call this modified scheme {\em Searchlight+1/2}.
+Fig.~\ref{fig:searchlight+1/2}). We call this modified scheme {\em Searchlight+1/2}.
 
 \begin{table}[t]\footnotesize
    \centering
@@ -749,9 +749,9 @@ Figure~\ref{fig:searchlight+1/2}). We call this modified scheme {\em Searchlight
    \begin{tabularx}{\columnwidth}{@{}l *{6}{>{\centering\arraybackslash}X}@{}}
       \toprule
       & \multicolumn{2}{c}{Searchlight-S} & \multicolumn{2}{c}{Searchlight-S+1} & \multicolumn{2}{c}{Searchlight-S+1/2} \\
-      \cmidrule(r){2-3}
+      \cmidrule(lr){2-3}
       \cmidrule(lr){4-5}
-      \cmidrule(l){6-7}
+      \cmidrule(lr){6-7}
       & \multicolumn{6}{c}{Latency (slots)} \\
       & Avg & Worst & Avg & Worst & Avg & Worst \\
       \cmidrule(lr){2-2}
@@ -775,7 +775,7 @@ modifications when the slots indices are offset by 0, 1, 2 and 3, to
 Searchlight-S in Table~\ref{tab:latency-aligned}.  We see that the
 latencies when the slots are offset by 2 can be significantly reduced,
 at the cost of slightly longer cycles, which increases the overall
-latency by a small amount. Figure~\ref{fig:searchlight-cdf} shows that
+latency by a small amount. Fig.~\ref{fig:searchlight-cdf} shows that
 our modified schemes slightly increase the overall latency.
 
 \begin{figure}[t]
@@ -800,7 +800,7 @@ approximately 10 hours of data for each day.  The data set used for
 our simulations consists of 31 days of traces over the one-month
 period in August 2013, containing 8,658 movement routes for the mobile
 nodes and 69,271 cave visits.  As an example, the routes for a
-particular day are shown in Figure~\ref{fig:trace}, where each cave is
+particular day are shown in Fig.~\ref{fig:trace}, where each cave is
 assigned a unique ID.
 
 \begin{figure}[t]
@@ -884,7 +884,7 @@ active. The typical duty cycles used in these protocols are 1\% and
 5\%, and the slot size is typically
 25\,ms~\citep{wang13blinddate,sun14hello,bakht2012searchlight}.
 
-In Figure~\ref{fig:a_c_break-25ms-5-orig}, we plot the cumulative
+In Fig.~\ref{fig:a_c_break-25ms-5-orig}, we plot the cumulative
 distribution of the discovery latency of the five most common neighbor
 discovery protocols using a 5\% duty cycle and a slot size of
 25\,ms. We see that as expected, Searchlight-S is the best
@@ -893,12 +893,12 @@ deterministic protocol, which is consistent with our earlier analysis.
 As energy consumption is an important factor in docking applications,
 we tried to reduce energy consumption by decreasing the duty cycle to
 1\% (while maintaining the original slot size of 25\,ms) and plot the
-results in Figure~\ref{fig:a_c_break-25ms-1-orig}.  The discovery
+results in Fig.~\ref{fig:a_c_break-25ms-1-orig}.  The discovery
 latency for all protocols increased by about a factor of
 10. Furthermore, the worst-case latency can now be longer than the
 time that the tourists spend in the caves, which can potentially cause
 detection failures. We plot the distribution of the time that the
-mobile nodes spend in the caves in Figure~\ref{fig:cdf_duration},
+mobile nodes spend in the caves in Fig.~\ref{fig:cdf_duration},
 which confirms our intuition and shows that the worst-case neighbor
 discovery latency needs to be below 200\,s for the reliable tracking
 of tourists.
@@ -913,15 +913,15 @@ argue that once discovery happens, the nodes can switch to a different
 communication protocol for the exchange of information.  Thus, we set
 the slot size to 5\,ms with a duty cycle of 1\% and plot the new
 cumulative distribution of the discovery latency in
-Figure~\ref{fig:a_c_break-5ms-1-orig}. We see that as expected, the
+Fig.~\ref{fig:a_c_break-5ms-1-orig}. We see that as expected, the
 discovery latency improves, but the latency increases to almost 5
-times that of the original as in Figure~\ref{fig:a_c_break-25ms-5-orig}.
+times that of the original as in Fig.~\ref{fig:a_c_break-25ms-5-orig}.
 
 {\bf Adding Synchronization}. Next, we investigated how
 synchronization would improve discovery latency. We repeated the
 simulation with a duty cycle of 1\% and a slot size of 5\,ms after
 introducing synchronization with DCS and MASS. We plot the results in
-Figures~\ref{fig:a_c_break-5ms-1-dcs}
+Fig.~\ref{fig:a_c_break-5ms-1-dcs}
 and~\ref{fig:a_c_break-5ms-1-syn} respectively.
 
 As expected, synchronization has no impact on the performance of the
@@ -1001,7 +1001,7 @@ estimation accuracy by more than 20 times.
 As the duty cycle affects the discovery latency of neighbor discovery
 protocols, we plot the percentage improvement of the average discovery
 latency with MASS over the original protocols in
-Figure~\ref{fig:improve}. An improvement of 90\% means that the
+Fig.~\ref{fig:improve}. An improvement of 90\% means that the
 resulting average discovery latency with MASS is 10\% of the original
 latency. The results show that as the duty cycle increases, the
 improvement decreases for Searchlight-S and BlindDate.  This is
@@ -1013,7 +1013,7 @@ improvement across different duty cycles.
 Reducing duty cycles is beneficial to save power, but at a cost of the
 increased discovery latency.  We examined how MASS affects this trade
 off by further reducing the duty cycle while keeping the slot size at
-5\,ms. Figure~\ref{fig:small} shows the distribution of the discovery
+5\,ms. Fig.~\ref{fig:small} shows the distribution of the discovery
 latency for Searchlight-S with MASS using smaller duty cycles. Because
 Searchlight-S has the lowest worst-case latency, we could reduce the
 duty cycle to 0.5\% while maintaining 100\% discovery success rate in
@@ -1025,11 +1025,11 @@ latency is affected.
 \subsection{Effectiveness of Clock Skew Compensation}
 
 Typical clock skew ranges from $\pm5$~ppm to
-$\pm100$~ppm~\cite{zhong2011demand}.  We showed experimentally that it
+$\pm100$~ppm~\citep{zhong2011demand}.  We showed experimentally that it
 is possible for clocks to drift apart by 5\,ms in just one hour (See
-Figure~\ref{fig:skew_cdc}). If the relative clock skew is 20\,ppm, and
+Fig.~\ref{fig:skew_cdc}). If the relative clock skew is 20\,ppm, and
 since the average inter-arrival time of the mobile nodes in our
-application is 15 minutes (See Figure~\ref{fig:visitingfrequency}),
+application is 15 minutes (See Fig.~\ref{fig:visitingfrequency}),
 their clocks would have drifted apart by 18\,ms, which is much larger
 than our slot size of 5\,ms. This would suggest that clock drift
 compensation is essential to ensure the synchronization among the
@@ -1037,7 +1037,7 @@ nodes.
 
 To validate this intuition, we repeated our experiments without clock
 drift compensation and compared MASS and DCS using the Searchlight-S
-protocol in Figure~\ref{fig:a_nc_break-5ms-1-searchlight}.  As
+protocol in Fig.~\ref{fig:a_nc_break-5ms-1-searchlight}.  As
 expected, DCS has no impact on Searchlight-S. Without clock drift
 compensation, the improvement of MASS is very limited. The same trends
 are observed for the other neighbor discovery protocols.  This
@@ -1054,7 +1054,7 @@ completely random. To ensure a fair comparison, we generated random
 traces that had the same node distribution as our Mogao Grottoes
 traces.
 
-Figure~\ref{fig:a_c_random-5ms-1} shows the distribution of the
+Fig.~\ref{fig:a_c_random-5ms-1} shows the distribution of the
 discovery latencies for Disco, BlindDate and Searchlight-S with and
 without MASS. The results show that while MASS could still improve the
 latency 30\% of the time, it is not as effective as before (75\% of
@@ -1067,14 +1067,15 @@ MASS in docking applications.
 
 \section{Experiments in a Mock-up Scenario}
 \label{sec:mock-up}
-
-We have proved in the simulation experiment that with MASS, the discovery
-latency of existing neighbor discovery protocols can be greatly improved.
-However, it is not clear how it will perform on a real sensor network.
-It is difficult and unrealistic to do such experiments at Mogao Grottoes,
-since the current system is running and a sudden break is not allowed.
-Thus we design a similar scenario to verify the performance of the proposed
-MASS.
+We now describe our implementation and practical considerations of the
+proposed MASS in a mock-up scenario. We have proved in the simulation 
+experiment that with MASS, the discovery latency of existing neighbor 
+discovery protocols can be greatly improved. However, it is not clear 
+how it will perform on a real sensor network. It is difficult and 
+unrealistic to do such experiments at Mogao Grottoes, since the current 
+tourists tracking system is running and a sudden break is not allowed.
+Thus we design a similar scenario to verify the performance of the 
+proposed MASS.
 
 \subsection{Hardware Platform}
 \begin{figure}[t]
@@ -1086,14 +1087,80 @@ MASS.
 
 We use the same hardware platform in experiments as the nodes deployed
 at Mogao Grottoes (shown in Fig.~\ref{fig:node}). The sensor node 
-consists of a 32-bit ARM Cortex-M3 MCU and a low-power IEEE-compatible
-radio transceiver AT86RF212 operating at 700/800/900 MHz with the 
-transmission rate from 20 to 250~kbps. The distinguish feature of sensor 
-nodes is the low power property, with the working and sleeping current 
-30 mA and 1.2 $\mu$A respectively. A rechargeable 3.7V Li-Polymer battery
-is used to power the sensor node.
+consists of a 32-bit ARM Cortex-M3 MCU SiM3L144 with 64~KB in-system
+self-programmable flash and a low-power IEEE-compatible radio transceiver 
+AT86RF212 operating at 700/800/900 MHz with the transmission rate from 
+20 to 250~kbps. The distinguish feature of sensor nodes is the low power 
+property, with the working and sleeping current 30 mA and 1.2 $\mu$A 
+respectively. A rechargeable 3.7V Li-Polymer battery is used to power 
+the sensor node.
 
-\subsection{Experimental Setup}
+\subsection{MASS Operation and Implementation}
+\begin{figure}[t]
+   \centering
+   \includegraphics{graphs/clock-compensation-result/compensate-effect}
+   \caption{Clock drift with clock skew compensation}
+   \label{fig:compensation}
+\end{figure}
+
+{\bf Heterogeneous Working Pattern.} Existing neighbor discovery protocols 
+generally adopt a beacon-listen-beacon working pattern in active slots. 
+This arrangement seems logical since it enables a pair of nodes to hear 
+each other's beacon and achieve mutual discovery when their active slots 
+overlap. However, with MASS, such working pattern will cause beaconing 
+collision since the mobile node will do slot index synchronization and 
+slot alignment with the discovered static node. Thus, in our implementation, 
+we adopt heterogeneous working pattern for static nodes and mobile nodes, 
+i.e., the static nodes adopt the beacon-listen-beacon pattern while the 
+mobile nodes adopt listen-beacon pattern. In other words, the mobile node
+keeps listening in active slots and sends a beacon if it discovered a static
+node.
+
+{\bf Clock Drift Compensation Interval.} The performance of MASS greatly
+depends on the accuracy of clock drift compensation. In Sec.~\ref{sec:clock-drift}
+, we show that with a constant compensation interval the clock drift
+between two nodes can be improved by nearly 8 times compared with no 
+compensation. However, in practice, it is difficult to set an appropriate
+compensation interval since the relative clock skew between nodes is
+not known in advance. 
+
+Considering the 5~ms slot size we used and beacon-listen-beacon pattern 
+in active slots, the clock drift should not be more than 2~ms in one
+compensation interval otherwise the discovery can not take place even
+the active slots overlap. Thus, instead of constant compensation interval,
+we set 1~ms as the clock drift tolerance and use this tolerance to make
+each node automatically compute the compensation interval. 
+
+To verify the effect of such automatic compensation interval, we choose 
+four nodes where one node works as the static node while the other three 
+as the mobile nodes. All the four nodes run the Searchlight protocol with 
+5\% duty cycle and 5~ms slot size. Mobile nodes will do slot index 
+synchronization and slot alignment with the static node after the first 
+discovery. After 120~s, the five mobile nodes estimate the relative clock
+skew with the static node. Based on the relative clock skew and the 1~ms
+clock drift tolerance, each mobile node calculate its compensation interval.
+
+Fig.~\ref{fig:compensation} shows the clock drift between each mobile node
+and the static node with clock drift compensation. We can see that in one
+compensation interval the clock drift becomes larger and the clock drift
+will be revised with compensation. Ideally, with periodic compensation, the
+mobile nodes can keep slot index synchronization with the static node.
+However, it is difficult to achieve perfect slot index synchronization in
+practice because of the internal error including clock skew estimation error,
+compensation error and the dynamic varrations of oscillator frequency.
+However, with our proposed clock drift compensation method, the slot index
+index can extended to 2.3~hours, 5.25~hours and 6.15~hours compared to the
+initial 0.77~hour, 1.15~hours and 1.75~hours without compensation for the
+three mobiles respectively.
+
+\subsection{Latency Reduction in Mock-up Scenario}
+\begin{figure}[t]
+   \centering
+   \includegraphics{graphs/latency-mockup/latency-reduction}
+   \caption{Discovery latency reduction in mock-up scenario at 1\% duty cycle and 5 ms slot size.}
+   \label{fig:latency-reduction}
+\end{figure}
+
 To simulate the tourists tracking system at Mogao Grottoes, we conduct
 the experiments on the third floor in a industrial park in Hangzhou.
 We choose 10 rooms and put one static node in each room. Then we invite 
@@ -1112,26 +1179,16 @@ Based on the entering time recorded on listening nodes and the discovered
 time recorded on the mobile nodes, the corresponding discovery latency
 can be computed offline.
 
-\subsection{Clock Skew Compensation Interval}
-
-The performance of proposed MASS is greatly affected by the accuracy of
-clock skew compensation. Based on the obtained relative clock skew (as 
-described in Sec.~\ref{sec:clock-drift}), we can get how much the active
-slots of two nodes will drift after a period of time. And it is more
-important to set an appropriate compensation interval to achieve the 
-best performance. The compensation interval cannot be too small or big.
-The error will be too large with a small interval, while the slot index
-will not keep synchronized with a too large interval.
-
-\todo{find ways to show the compensation interval selected.}
-
-\subsection{Latency Reduction}
-To investigate how MASS performs in reducing discovery latency, we
-adopted the state-of-the-art Searchlight with 1\% duty cycle and 
+We adopted the state-of-the-art Searchlight with 1\% duty cycle and 
 5~ms slot size. The experiments last three continuous days and there
 are totally 300 discovery records. As comparison, the volunteers carry 
 listening nodes and mobile nodes running with and without MASS following 
 the same moving pattern.
+
+Fig.~\ref{fig:latency-reduction} shows the cumulative distribution of the
+discovery latency in the mock-up scenario. We can see that with MASS the
+discovery latency can be greatly reduced and the results is in accordance
+with the simulation results.
 
 \section{Conclusion}
 \label{sec:conclusion}
