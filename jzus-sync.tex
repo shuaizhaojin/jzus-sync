@@ -509,12 +509,12 @@ into contact with any of the synchronized static nodes.
    \centering
    \caption{Summary of update rules for reference node election}
       %\vspace{-6pt}
-   \begin{tabularx}{\columnwidth}{@{}Xll@{}}
+   \begin{tabularx}{\columnwidth}{@{}lll@{}}
      \toprule
      Condition & Static node & Mobile node \\
      \midrule
-     $P_{m}>P_{s}$ and $P_{m}>P_{s.ref}$ & $P_{s.ref} \leftarrow P_m$ & No Change \\
-     $P_{m}<P_{s}$ or $P_{m}<P_{s.ref}$ & No Change & $P_m \leftarrow \textrm{max}(P_s, P_{s.ref})$ \\
+       $P_{m} > max(P_{s}, P_{s.ref})$ & $P_{s.ref} \leftarrow P_m$ & No Change \\
+       $P_{m}<max(P_{s}, P_{s.ref})$ & No Change & $P_m \leftarrow \textrm{max}(P_s, P_{s.ref})$ \\
      \bottomrule
    \end{tabularx}
    \label{tab:priority}
@@ -748,7 +748,7 @@ Fig.~\ref{fig:searchlight+1/2}). We call this modified scheme {\em Searchlight+1
    %\vspace{-6pt}
    \begin{tabularx}{\columnwidth}{@{}l *{6}{>{\centering\arraybackslash}X}@{}}
       \toprule
-      & \multicolumn{2}{c}{Searchlight-S} & \multicolumn{2}{c}{Searchlight-S+1} & \multicolumn{2}{c}{Searchlight-S+1/2} \\
+      & \multicolumn{2}{c}{SL-S} & \multicolumn{2}{c}{SL-S+1} & \multicolumn{2}{c}{SL-S+1/2} \\
       \cmidrule(lr){2-3}
       \cmidrule(lr){4-5}
       \cmidrule(lr){6-7}

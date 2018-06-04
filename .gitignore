@@ -1,0 +1,17 @@
+CVS/
+*.eps
+*.aux
+*.bbk
+*.bbl
+*.dvi
+*.log
+*.ps
+*.pdf
+*~
+*.blg
+*.bak
+*.backup
+*.orig
+.cvsignore
+.tmp
+.sh
