@@ -1090,7 +1090,7 @@ at Mogao Grottoes (shown in Fig.~\ref{fig:node}). The sensor node
 consists of a 32-bit ARM Cortex-M3 MCU SiM3L144 with 64~KB in-system
 self-programmable flash and a low-power IEEE-compatible radio transceiver 
 AT86RF212 operating at 700/800/900 MHz with the transmission rate from 
-20 to 250~kbps. The distinguish feature of sensor nodes is the low power 
+20 to 250~kbps. An important feature of sensor nodes is the low power 
 property, with the working and sleeping current 30 mA and 1.2 $\mu$A 
 respectively. A rechargeable 3.7V Li-Polymer battery is used to power 
 the sensor node.
@@ -1108,7 +1108,7 @@ generally adopt a beacon-listen-beacon working pattern in active slots.
 This arrangement seems logical since it enables a pair of nodes to hear 
 each other's beacon and achieve mutual discovery when their active slots 
 overlap. However, with MASS, such working pattern will cause beaconing 
-collision since the mobile node will do slot index synchronization and 
+collision since the mobile node will perform slot index synchronization and 
 slot alignment with the discovered static node. Thus, in our implementation, 
 we adopt heterogeneous working pattern for static nodes and mobile nodes, 
 i.e., the static nodes adopt the beacon-listen-beacon pattern while the 
@@ -1125,20 +1125,20 @@ compensation interval since the relative clock skew between nodes is
 not known in advance. 
 
 Considering the 5~ms slot size we used and beacon-listen-beacon pattern 
-in active slots, the clock drift should not be more than 2~ms in one
-compensation interval otherwise the discovery can not take place even
+in active slots, the clock drift should not exceed 2\,ms in one
+compensation interval, otherwise the discovery may fail even
 the active slots overlap. Thus, instead of constant compensation interval,
 we set 1~ms as the clock drift tolerance and use this tolerance to make
 each node automatically compute the compensation interval. 
 
 To verify the effect of such automatic compensation interval, we choose 
-four nodes where one node works as the static node while the other three 
+four nodes where 1 node works as the static node while the other 3 
 as the mobile nodes. All the four nodes run the Searchlight protocol with 
-5\% duty cycle and 5~ms slot size. Mobile nodes will do slot index 
+5\% duty cycle and 5~ms slot size. Mobile nodes will perform slot index 
 synchronization and slot alignment with the static node after the first 
-discovery. After 120~s, the five mobile nodes estimate the relative clock
+discovery. After 120~s, the 3 mobile nodes estimate the relative clock
 skew with the static node. Based on the relative clock skew and the 1~ms
-clock drift tolerance, each mobile node calculate its compensation interval.
+clock drift tolerance, each mobile node calculates its compensation interval.
 
 Fig.~\ref{fig:compensation} shows the clock drift between each mobile node
 and the static node with clock drift compensation. We can see that in one
@@ -1146,12 +1146,12 @@ compensation interval the clock drift becomes larger and the clock drift
 will be revised with compensation. Ideally, with periodic compensation, the
 mobile nodes can keep slot index synchronization with the static node.
 However, it is difficult to achieve perfect slot index synchronization in
-practice because of the internal error including clock skew estimation error,
+practice due to measurement errors including clock skew estimation error,
 compensation error and the dynamic varrations of oscillator frequency.
 However, with our proposed clock drift compensation method, the slot index
-index can extended to 2.3~hours, 5.25~hours and 6.15~hours compared to the
+synchronization can be extended to 2.3~hours, 5.25~hours and 6.15~hours compared to the
 initial 0.77~hour, 1.15~hours and 1.75~hours without compensation for the
-three mobiles respectively.
+3 mobiles respectively.
 
 \subsection{Latency Reduction in Mock-up Scenario}
 \begin{figure}[t]
@@ -1162,8 +1162,8 @@ three mobiles respectively.
 \end{figure}
 
 To simulate the tourists tracking system at Mogao Grottoes, we conduct
-the experiments on the third floor in a industrial park in Hangzhou.
-We choose 10 rooms and put one static node in each room. Then we invite 
+the experiments on the third floor of a building.
+We used 10 rooms to simulate 10 caves and put one static node in each room. Then we invite 
 volunteers to carry mobile nodes moving through different rooms based 
 on a predefined moving pattern. The moving pattern is randomly produced
 following the moving pattern at Mogao Grottoes including the sequence
@@ -1181,7 +1181,7 @@ can be computed offline.
 
 We adopted the state-of-the-art Searchlight with 1\% duty cycle and 
 5~ms slot size. The experiments last three continuous days and there
-are totally 300 discovery records. As comparison, the volunteers carry 
+are totally 300 discovery records. For comparison, the volunteers carry 
 listening nodes and mobile nodes running with and without MASS following 
 the same moving pattern.
 
