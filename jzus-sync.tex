@@ -25,7 +25,7 @@
 %% when all authors provide emails, no $\dagger$
 \author[$\dagger$$\ddagger$1]{Shuai-zhao JIN}%
 \author[$$2]{Zi-xiao WANG}%
-\author[$$2]{Ben Leong}%
+%\author[$$2]{Ben Leong}%
 \author[$$1]{Ya-bo Dong}%
 \author[$$1]{Dong-ming Lu}
 \affil[1]{School of Computer Science and Technology of Zhejiang University, Hangzhou 310027, China}
@@ -1156,18 +1156,34 @@ initial 0.77~hour, 1.15~hours and 1.75~hours without compensation for the
 \subsection{Latency Reduction in Mock-up Scenario}
 \begin{figure}[t]
    \centering
+   \includegraphics[width=.9\columnwidth]{static/mockup-trace}
+   \caption{Moving pattern in the mock-up scenario}
+   \label{fig:mockup}
+\end{figure}
+
+
+\begin{figure}[t]
+   \centering
    \includegraphics{graphs/latency-mockup/latency-reduction}
    \caption{Discovery latency reduction in mock-up scenario at 1\% duty cycle and 5 ms slot size.}
    \label{fig:latency-reduction}
 \end{figure}
 
+\begin{figure}[t]
+   \centering
+   \includegraphics{graphs/reference_selection/mock-day1}
+   \caption{Reference selection process on the first day.}
+   \label{fig:mock-day1}
+\end{figure}
+
+
 To simulate the tourists tracking system at Mogao Grottoes, we conduct
-the experiments on the third floor of a building.
-We used 10 rooms to simulate 10 caves and put one static node in each room. Then we invite 
+the experiments on the third floor of a building. We used 10 rooms to 
+simulate 10 caves and put one static node in each room. Then we invite 
 volunteers to carry mobile nodes moving through different rooms based 
-on a predefined moving pattern. The moving pattern is randomly produced
-following the moving pattern at Mogao Grottoes including the sequence
-of rooms and the staying time in each room. 
+on a predefined moving pattern. The moving pattern (as shown in Fig.~\ref{fig:mockup}) 
+is randomly produced following the moving pattern at Mogao Grottoes 
+including the sequence of rooms and the staying time in each room. 
 
 To compute the discovery latency, i.e., the time interval from mobile
 nodes coming into the communication range of static nodes (entering
@@ -1181,14 +1197,18 @@ can be computed offline.
 
 We adopted the state-of-the-art Searchlight with 1\% duty cycle and 
 5~ms slot size. The experiments last three continuous days and there
-are totally 300 discovery records. For comparison, the volunteers carry 
-listening nodes and mobile nodes running with and without MASS following 
-the same moving pattern.
+are totally 271 discovery records with 32 volunteers invited. For 
+comparison, the volunteers carry listening nodes and mobile nodes 
+running with and without MASS following the same moving pattern.
 
 Fig.~\ref{fig:latency-reduction} shows the cumulative distribution of the
 discovery latency in the mock-up scenario. We can see that with MASS the
 discovery latency can be greatly reduced and the results is in accordance
 with the simulation results.
+
+Fig.~\ref{fig:mock-day1} shows the reference selection process of the 
+traces on the first day. We can see that after 50~minutes all the 9
+static nodes can keep slot index synchronization with the node S10.
 
 \section{Conclusion}
 \label{sec:conclusion}

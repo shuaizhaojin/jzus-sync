@@ -5,7 +5,9 @@ set ylabel "Fraction of discoveries"
 set key bottom right
 #set xrange [0:350]
 
-plot "WithMASS-cdf.dat" u 3:(($0+1)/102) t 'With MASS' w l ls 1,\
-     "NoMASS-cdf.dat" u 3:(($0+1)/102) t 'Searchlight' w l ls 5
+plot "WithMASS-cdf.dat" u (column(3)/2.0):(($0+1)/102) t 'Simul w MASS' w l ls 1,\
+     "syn.dat" u (column(2)/1000000.0):(($0+1)/271) t 'Mockup w MASS' w l ls 5,\
+     "NoMASS-cdf.dat" u (column(3)/2.0):(($0+1)/102) t 'Simul' w l ls 2,\
+     "orig.dat" u (column(2)/1000000.0):(($0+1)/271) t 'Mockup' w l ls 6
 
      
