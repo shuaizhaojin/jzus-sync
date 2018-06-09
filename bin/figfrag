@@ -1,0 +1,347 @@
+#!/usr/bin/perl
+
+# figfrag -- generate EPS from FIG files (generated with xfig)
+# Copyright (C) 1999,  Maarten Ditzel
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+use strict;
+
+use Getopt::Std;
+use File::Path;
+use File::Basename;
+use File::Copy;
+use Cwd;
+
+my $program = "figfrag";
+my $version = "2.5";
+
+my $tmpdir = "/tmp/.$program-$$";
+my $calldir = cwd();
+
+my $fig = "$program.fig";
+my $tex = "$program.tex";
+my $dvi = "$program.dvi";
+my $eps1 = "$program.eps1";
+my $eps2 = "$program.eps2";
+my $dirname = dirname(Cwd::abs_path($0));
+
+my $quiet = 0;
+my $keep = 0;
+my $defaultcolor = "black";
+my $font;
+
+my ($include, $infile, $outfile);
+
+my $texheader = <<EOF;
+%% AUTOMATICALLY GENERATED WITH $program $version
+
+\\documentclass[letter,twocolumn,9pt]{article}
+
+\\usepackage{epsfig}
+\\usepackage{psfrag}
+\\usepackage{color}
+\\usepackage{calc}
+\\usepackage{ifthen}
+\\usepackage{amsmath}
+\\usepackage{mathptmx}
+\\usepackage[scaled=.90]{helvet}
+\\renewcommand\\familydefault{\\sfdefault}
+
+\\pagestyle{empty}
+
+\\begin{document}
+
+%%\\newbox{\\fig}
+%%\\newlength{\\figwidth}
+%%\\newlength{\\figheight}
+%%\\newlength{\\widthratio}
+%%\\newlength{\\heightratio}
+EOF
+
+my $texfooter = <<EOF;
+%%\\settowidth{\\figwidth}{\\usebox{\\fig}}
+%%\\settoheight{\\figheight}{\\usebox{\\fig}}
+%%\\setlength{\\widthratio}{1pt*\\ratio{\\columnwidth}{\\figwidth}}
+%%\\setlength{\\heightratio}{1pt*\\ratio{\\textheight}{\\figheight}}
+%%
+%%\\ifthenelse{\\lengthtest{\\widthratio < \\heightratio}}{%%
+%%\\resizebox{.95\\columnwidth}{!}{\\usebox{\\fig}}}{%%
+%%\\resizebox{!}{.95\\textheight}{\\usebox{\\fig}}
+%%}
+
+\\end{document}
+EOF
+
+sub debug {
+  my ($msg) = @_;
+  print STDERR "$msg\n" if (not $quiet);
+}
+
+sub print_info {
+  print STDERR "$program $version\n";
+  print STDERR "Maarten Ditzel, July 1999, revised February 2002\n";
+  print STDERR "usage: $program [options] <file>\n";
+  print STDERR 
+      "options:\n",
+      "  -h : this help\n",
+      "  -V : print version\n",
+      "  -k : keep intermediate files (debug purposes)\n",
+      "  -q : quite (non-verbose)\n",
+      "  -i <include_file> : include file with LaTeX commands\n",
+      "  -o <output_file>  : output to file\n",
+      "  -f <fontfamily>   : set default font\n",
+      "  -c <color>        : set default color (default black)\n";
+}
+
+sub print_version {
+  print STDERR "$program $version\n";
+}
+
+sub create_tmpdir {
+  mkdir($tmpdir, 0775)  ||
+    die "ERROR: could not make temporary directory.\n";
+  chdir($tmpdir) ||
+    die "ERROR: could not change to working directory.\n";
+}
+
+sub destroy_tmpdir {
+  chdir $calldir;
+  rmtree($tmpdir) || 
+    die "ERROR: could not remove temporary directory.\n";
+}
+
+sub process_options {
+
+  my %options;
+
+  getopts('hVkqc:f:i:o:', \%options) ||
+    die "ERROR: invalid arguments.\n";
+
+  if (defined $options{h}) {
+    &print_info;
+    exit;
+  }
+
+  if (defined $options{V}) {
+    &print_version;
+    exit;
+  }
+
+  if (defined $options{q}) {
+    $quiet = 1;
+  }
+
+  if (defined $options{f}) {
+    $font = "$options{f}";
+  }
+
+  if (defined $options{c}) {
+    $defaultcolor = "$options{c}";
+  }
+
+  if (defined $options{i}) {
+    $include = "$options{i}";
+  }
+  
+  if (defined $options{k}) {
+    $keep = 1;
+  }
+
+  $infile = shift @ARGV ||
+    die "ERROR: no input file specified\n";
+  $infile = "$calldir/$infile";
+
+  if (defined $options{o}) {
+    $outfile = $options{o};
+  }
+  else {
+    $outfile = $infile;
+    $outfile =~ s/\.fig$/\.eps/;
+  }
+}
+
+sub read_fig {
+  # create fig and tex files
+  open(FIG, ">$fig") || 
+    die "ERROR: could not create $fig\n";
+  open(TEX, ">$tex") || 
+    die "ERROR: could not create $tex\n";
+
+  debug("Generating LaTeX file...");
+
+  print TEX $texheader;
+
+  # set custom font
+  if ($font) {
+    print TEX "\\renewcommand{\\familydefault}{$font}\n";
+    print TEX "\\normalfont\n";
+  }
+
+  # include file
+  open(INC, "<$calldir/$include") ||
+      die "ERROR: could not open $include\n";
+  while(<INC>) {
+    print TEX;
+  }
+  close(INC);
+
+  # start figure box
+#  print TEX "\\savebox{\\fig}{\n";
+
+  # variables
+  my ($mark, $ltx, $marker, $line, $opt, 
+      $fontsize, $fontcolor, $fontstyle);
+
+  # alignment strings
+  my @align = ( "[Bl][Bl]", "[Bc][Bc]", "[Br][Br]" );
+  my @color = ( $defaultcolor, 
+		"black", 
+		"blue", 
+		"green", 
+		"cyan",
+		"red",
+		"magenta",
+		"yellow",
+		"white" );
+  my @style = ( "",              # default font (no change)
+		"\\rmfamily",
+		"\\bfseries",
+		"\\itshape",
+		"\\sffamily",
+		"\\ttfamily" );
+
+  $mark = 0;
+
+  open(INFILE, "<$infile") || 
+      die "ERROR: could not open $infile\n";
+  
+  while ($line = <INFILE>) {
+    
+    my @fields = split / /, $line, 14;
+
+    # copy picture files over
+    if ($fields[1] =~ /[png|gif]/)
+    {
+	my $pic = $fields[1];
+	chomp($pic);
+	print "Copying $calldir/$fields[1] to $tmpdir/$fields[1]";
+       copy("$calldir/$pic", "$tmpdir/$pic");
+    }
+
+    # process only text fields with non Postscript fonts
+    if ( $fields[0] == 4 && ( $fields[8] & 0x02 ) ) { 
+
+      # reset special flag
+      $fields[8] = 0;
+
+      # create unique marker
+      $marker = sprintf "mark-%04d", $mark++;
+
+      # get font size
+      $fontsize = $fields[6];
+
+      # get the font color
+      if ( $fields[2] > 7 ) {
+	print STDERR "color $fields[2] not supported (>7)";
+	$fields[2] = -1; # default color
+      }
+
+      $fontcolor = "\\color\{$color[$fields[2]+1]\}";
+
+      # get the font style
+      $fontstyle = $style[$fields[5]];
+
+      # get the latex command
+      $ltx = $fields[13];
+      $ltx =~ s/\\001\n$//;
+
+      # replace double backslashes by single
+      $ltx =~ s/\\\\/\\/g;
+
+      # replace special characters
+#      $ltx =~ s/&/\\&/g;
+
+      # change math mode from textstyle to displaystyle
+      $ltx =~ s/\$(.*)\$/\$\\displaystyle $1\$/g;
+
+      # replace \int and \sum by \int\limits and \sum\limits
+      $ltx =~ s/\\int/\\int\\limits/g;
+      $ltx =~ s/\\sum/\\sum\\limits/g;
+
+      $ltx = "\\fontsize{$fontsize}{$fontsize}$fontstyle$fontcolor\\selectfont $ltx";
+
+      # adjust alignment
+      $opt = $align[$fields[1]];
+
+      # generate psfrag command
+      print TEX "  \\psfrag{$marker}$opt\{$ltx}\n";
+
+      $fields[13] = $marker;
+      print FIG "@fields\\001\n";
+    }
+    else {
+      print FIG $line; # @fields;
+    }
+  }
+
+  close INFILE;
+
+  # close figure box
+  print TEX "  \\epsfig{file=$eps1}\n";
+#  print TEX "}\n";
+
+  print TEX $texfooter;
+
+  close FIG;
+  close TEX;
+
+}
+
+sub convert_fig {
+
+  debug("Converting figure to EPS...");
+  system "fig2dev -L eps $fig $eps1 > /dev/null" ||
+    die "ERROR: could not execute fig2dev\n";
+
+  debug("Replacing tags with LaTeX commands...");
+  system "latex --interaction nonstopmode $tex > /dev/null" ||
+    die "ERROR: could not execute latex\n";
+
+  debug("Converting DVI to EPS...");
+  system "\\dvips -E -o $outfile $dvi 2> /dev/null" ||
+    die "ERROR: could not execute dvips\n";
+
+#  debug("Cropping bounding box...");
+#  system "$dirname/epscrop $eps2 > $outfile" ||
+#    die "ERROR: could not execute epscrop\n";
+  
+  debug("Cropping bounding box...");
+  system "$dirname/fixbb $outfile" ||
+    die "ERROR: could not execute epscrop\n";
+
+}
+
+
+&process_options;
+&create_tmpdir;
+&read_fig;
+&convert_fig;
+if ( $keep ) {
+  debug("keeping intermediate files in $tmpdir\n");
+}
+else {
+  &destroy_tmpdir;
+}
