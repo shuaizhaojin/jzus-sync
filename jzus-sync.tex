@@ -59,7 +59,7 @@
 
 
 \abstract{Neighbor discovery is important for \emph{docking} applications, where mobile nodes communicate with
-static nodes situating at various rendezvous points. Among existing neighbor discovery protocols, probabilistic
+static nodes situated at various rendezvous points. Among existing neighbor discovery protocols, probabilistic
 methods perform well in the average case but have aperiodic, unpredictable and unbounded discovery latency.
 While deterministic protocols can provide a bounded worst-case discovery latency, they achieve this by
 sacrificing the average-case performance. In this paper, we propose Mobility-Assisted Slot index Synchronization
@@ -132,11 +132,11 @@ other at the next earliest active slot, i.e., the next overlapping active slot.
 
 While this might sound straightforward, it turns out that synchronizing the nodes for a docking application introduces
 a number of challenges. First, the synchronization must be done in a distributed manner as the static nodes cannot 
-directly communicate with each other. Instead, they can only communicate by using the mobile nodes to relay information.
-Second, the synchronization should converge quickly in order to achieve any gains. Finally, the intrinsic inaccuracies
-in the clocks of the sensors will result in \emph{clock drift}. If the synchronization of the slots drifts by a small
-amount, the resulting latency could potentially become the worst case, instead of being optimal. In other words, 
-synchronization could significantly degrade performance instead of improving performance if we are not careful.
+directly communicate with each other. Instead, they can only communicate by using the mobile nodes to relay information,
+ i.e., mobiles nodes work as proxy. Second, the synchronization should converge quickly in order to achieve any gains. 
+Finally, the intrinsic inaccuracies in the clocks of the sensors will result in \emph{clock drift}. If the synchronization 
+of the slots drifts by a small amount, the resulting latency could potentially become the worst case, instead of being optimal. 
+In other words, synchronization could significantly degrade performance instead of improving performance if we are not careful.
 
 We propose and evaluate Mobility-Assisted Slot index Synchronization~(MASS), which improves the average-case performance
 of existing deterministic neighbor discovery protocols via \emph{slot index synchronization}. In MASS, the nodes first
@@ -164,8 +164,9 @@ deployed at the Mogao Grottoes.
 
 The rest of the paper is organized as follows: in Section~\ref{sec:related}, we present an overview of existing neighbor 
 discovery protocols as well as clock synchronization and drift compensation techniques. In Section~\ref{sec:challenge}, 
-we describe our docking application scenario, our key insight and explain the challenges for our system. In Section, we 
-describe the MASS algorithm. We evaluate MASS in Section and conclude in Section.
+we describe our docking application scenario, our key insight and explain the challenges for our system. In Section~\ref{sec:mass}, 
+we describe the MASS algorithm. We evaluate MASS through a custom simulator in Section~\ref{sec:eval} and experiments in
+a mock-up scenario in Section~\ref{sec:mock-up}. We conclude the paper in Section~\ref{sec:conclusion}.
 
 \section{Related Work}
 \label{sec:related}
@@ -173,11 +174,12 @@ describe the MASS algorithm. We evaluate MASS in Section and conclude in Section
 {\bf Neighbor Discovery Protocols.} Neighbor discovery protocols are needed in duty-cycled 
 networks to ensure discovery. Most neighbor discovery protocols are \emph{slotted} protocols
 and divide time into identically-sized discrete slots. In each slot, sensor nodes either
-sleep or wake up according to some pattern determined by the protocol. Existing protocols
-can be classified by their adoption of either \emph{probabilistic} or \emph{deterministic}
-wake-sleep slot schedules to achieve an overlap. In probabilistic protocols, the sleep-wake 
-schedule is based on some randomized function~\citep{mcglynn2001birthday}. With the right
-parameters, probabilistic protocols can achieve good average-case performance. Unfortunately, 
+sleep or wake up according to some pattern determined by the protocol. During \emph{active}
+slots, the nodes wake up to transmit and listen for beacons from potential neighbors.
+Existing protocols can be classified by their adoption of either \emph{probabilistic} or 
+\emph{deterministic} wake-sleep slot schedules to achieve an overlap. In probabilistic 
+protocols, the sleep-wake schedule is based on some randomized function~\citep{mcglynn2001birthday}. 
+Generally, probabilistic protocols can achieve good average-case performance. Unfortunately, 
 the worst-case performance is unbounded, i.e., there is a small chance that two nodes will 
 never discover each other.
 
@@ -197,7 +199,7 @@ improve the performance of Searchlight by having two dynamic probe slots travers
 in opposite directions within each period. BlindDate also requires the extension of active slots like 
 Searchlight.  Sun et al.\ proposed Hello~\citep{sun14hello}, a generalized framework for deterministic
 protocols that can represent existing protocols such as Quorum, Disco, U-Connect and Searchlight, using 
-a set of parameters.  They proved that Searchlight is the optimal symmetric protocol.  Our technique,
+a set of parameters.  They proved that Searchlight is the optimal symmetric protocol. Our technique,
 MASS, complements existing deterministic protocols and can significantly reduce discovery latency 
 through slot index synchronization.
 
@@ -236,7 +238,7 @@ synchronization algorithms are not feasible for our application.
 \begin{figure}[t]
   \centering 
   \includegraphics[scale=0.35]{static/mogao}
-  \caption{Mogao Grottoes}
+  \caption{A small section of Mogao Grottoes}
   \label{fig:mogao}
 \end{figure}
 
@@ -467,7 +469,7 @@ into contact with any of the synchronized static nodes.
    \centering
    \begin{subfigure}
        \centering
-       \includegraphics[scale=0.35]{figs/illustration-1}
+       \includegraphics[scale=0.55]{figs/illustration-1}
    \end{subfigure}
       \parbox{.8\columnwidth}
       {\smallskip\scriptsize
@@ -476,7 +478,7 @@ into contact with any of the synchronized static nodes.
       synced with node $p$.\\}
   \begin{subfigure}
       \centering
-      \includegraphics[scale=0.35]{figs/illustration-2}
+      \includegraphics[scale=0.55]{figs/illustration-2}
   \end{subfigure}
       \parbox{.8\columnwidth}
       {\smallskip\scriptsize
@@ -484,7 +486,7 @@ into contact with any of the synchronized static nodes.
       updates its reference to $P_r$.\\}
   \begin{subfigure}
       \centering
-      \includegraphics[scale=0.35]{figs/illustration-3}
+      \includegraphics[scale=0.55]{figs/illustration-3}
   \end{subfigure}
       \parbox{.8\columnwidth}
       {\smallskip\scriptsize
@@ -493,7 +495,7 @@ into contact with any of the synchronized static nodes.
       reference to $P_p$.\\}
   \begin{subfigure}
       \centering
-      \includegraphics[scale=0.35]{figs/illustration-4}
+      \includegraphics[scale=0.55]{figs/illustration-4}
   \end{subfigure}
       \parbox{.8\columnwidth}
       {\smallskip\scriptsize
@@ -548,9 +550,9 @@ determines and computes its priority $P_s$.
 
 \begin{figure}[t]
    \centering
-   \includegraphics[scale=0.7]{graphs/visiting_frequency/visitingfrequency}
+   \includegraphics[scale=0.85]{graphs/visiting_frequency/visitingfrequency}
    \caption{Average inter-arrival time and the priority of different
-            caves at Mogao Grottoes for day one.}
+            caves at Mogao Grottoes over one day.}
    \label{fig:visitingfrequency}
 \end{figure}
 
@@ -650,7 +652,9 @@ the delivery time~\citep{maroti2004flooding}.
 
 In Fig.~\ref{fig:skew_int}, we plot the average estimated relative
 clock skew and the standard deviation in parts per million (ppm) for
-beacon intervals from 1\,s to 120\,s. We found that a larger beacon
+beacon intervals from 1\,s to 120\,s based on the sensor nodes used
+in the tracking system at Mogao Grottoes which will be introduced in 
+Section~\ref{sec:mock-up}. We found that a larger beacon
 interval leads to a more accurate and stable estimation.  In
 Fig.~\ref{fig:skew_minute}, we plot the relative clock skew between
 the sending node and the three receiving nodes with the beacon
@@ -662,14 +666,7 @@ clocks of two nodes with and without clock drift compensation, which
 suggests that it is possible to estimate and compensate for the clock
 drift in our system.
 
-{\bf Clock Drift Compensation.} Once we have an estimate of the clock
-skew, sensor nodes can compensate for its clock drift against the
-reference node by adjusting its clock periodically. Due to the
-granularity of the clocks, the period of adjustment cannot be too
-small. We found that having the nodes adjust their clocks every 100\,s
-worked well for our sensor hardware.
-
-From our Mogao Grottoes traces, tourists (and therefore the mobile
+From the real Mogao Grottoes traces, tourists (and therefore the mobile
 nodes) will typically stay in each cave for more than 120\,s
 (see~Fig.\ref{fig:cdf_duration}), which as Fig.~\ref{fig:skew_int}
 suggests, is sufficiently long to get a good estimate of the clock
@@ -677,6 +674,51 @@ skew. Since the average inter-arrival time of the mobile nodes at each
 cave is less than 18 minutes (see Fig.~\ref{fig:visitingfrequency}),
 the expected clock drift during this interval is within one slot
 (5\,ms) with clock drift compensation.
+
+\begin{figure}[t]
+   \centering
+   \includegraphics{graphs/clock-compensation-result/compensate-effect}
+   \caption{Clock drift changes with dynamic compensation interval for three mobile nodes.}
+   \label{fig:compensation}
+\end{figure}
+
+{\bf Clock Drift Compensation.} Once we have an estimate of the clock
+skew, sensor nodes can compensate for its clock drift against the
+reference node by adjusting its clock periodically. Due to the
+granularity of the clocks~(30~$\mu s$ for our hardware), the compensation
+interval cannot be too small. We found that having the nodes adjust 
+their clocks every 100\,s worked well for our sensor hardware as shown 
+in Fig.~\ref{fig:skew_cdc} where the clock drift between two nodes can
+be reduced by 8 times compared with no compensation.
+
+However, in practice, it is difficult to set an appropriate compensation
+interval since the relative clock skew between nodes is not known in advance.
+Thus, instead of using a constant compensation interval, we set an clock
+drift tolerance to make each node automatically compute the compensation
+interval which we call the dynamic compensation interval. Through the 
+measurement on our hardware, it is effective to set the clock drift tolerance 
+1~ms.
+
+We validate such dynamic compensation interval with the neighbor discovery
+protocol. We choose four nodes where one node works as the static node while 
+the other three as the mobile nodes. These four nodes run the Searchlight 
+protocol with 5\% duty cycle and 5~ms slot size. Mobile nodes do slot index 
+synchronization with the static node after the first discovery. After 120~s, 
+the three mobile nodes estimate the relative clock skew with the static node. 
+Then each mobile node compute its compensation interval and do clock drift
+after the interval.
+
+We compute the wake up time drift after each discovery period and plot the
+results in Fig.~\ref{fig:compensation}. We can see that in the compensation 
+interval the clock drift becomes larger and will be revised with compensation. 
+Ideally, with periodic compensation, the mobile nodes can keep slot index 
+synchronization with the static node. However, it is difficult to achieve 
+perfect slot index synchronization in practice due to measurement errors 
+including clock skew estimation error, compensation error and the dynamic 
+varrations of oscillator frequency. However, with our proposed clock drift 
+compensation method, the slot index synchronization can be extended to 2.3~hours, 
+5.25~hours and 6.15~hours compared to the initial 0.77~hour, 1.15~hours and 
+1.75~hours without compensation for the three mobiles respectively.
 
 {\bf Slot Alignment} While it is possible for the nodes to align their
 slot timing to the reference node, we found that the resulting
@@ -1095,63 +1137,19 @@ property, with the working and sleeping current 30 mA and 1.2 $\mu$A
 respectively. A rechargeable 3.7V Li-Polymer battery is used to power 
 the sensor node.
 
-\subsection{MASS Operation and Implementation}
-\begin{figure}[t]
-   \centering
-   \includegraphics{graphs/clock-compensation-result/compensate-effect}
-   \caption{Clock drift with clock skew compensation}
-   \label{fig:compensation}
-\end{figure}
+\subsection{Heterogeneous Working Pattern}
 
-{\bf Heterogeneous Working Pattern.} Existing neighbor discovery protocols 
-generally adopt a beacon-listen-beacon working pattern in active slots. 
-This arrangement seems logical since it enables a pair of nodes to hear 
-each other's beacon and achieve mutual discovery when their active slots 
-overlap. However, with MASS, such working pattern will cause beaconing 
-collision since the mobile node will perform slot index synchronization and 
-slot alignment with the discovered static node. Thus, in our implementation, 
+Existing neighbor discovery protocols generally adopt a beacon-listen-beacon 
+working pattern in active slots. This arrangement seems logical since it enables 
+a pair of nodes to hear each other's beacon and achieve mutual discovery when 
+their active slots overlap. However, with MASS, such working pattern will cause 
+beaconing collision since the mobile node will perform slot index synchronization 
+and slot alignment with the discovered static node. Thus, in our implementation, 
 we adopt heterogeneous working pattern for static nodes and mobile nodes, 
 i.e., the static nodes adopt the beacon-listen-beacon pattern while the 
 mobile nodes adopt listen-beacon pattern. In other words, the mobile node
 keeps listening in active slots and sends a beacon if it discovered a static
 node.
-
-{\bf Clock Drift Compensation Interval.} The performance of MASS greatly
-depends on the accuracy of clock drift compensation. In Sec.~\ref{sec:clock-drift}
-, we show that with a constant compensation interval the clock drift
-between two nodes can be improved by nearly 8 times compared with no 
-compensation. However, in practice, it is difficult to set an appropriate
-compensation interval since the relative clock skew between nodes is
-not known in advance. 
-
-Considering the 5~ms slot size we used and beacon-listen-beacon pattern 
-in active slots, the clock drift should not exceed 2\,ms in one
-compensation interval, otherwise the discovery may fail even
-the active slots overlap. Thus, instead of constant compensation interval,
-we set 1~ms as the clock drift tolerance and use this tolerance to make
-each node automatically compute the compensation interval. 
-
-To verify the effect of such automatic compensation interval, we choose 
-four nodes where 1 node works as the static node while the other 3 
-as the mobile nodes. All the four nodes run the Searchlight protocol with 
-5\% duty cycle and 5~ms slot size. Mobile nodes will perform slot index 
-synchronization and slot alignment with the static node after the first 
-discovery. After 120~s, the 3 mobile nodes estimate the relative clock
-skew with the static node. Based on the relative clock skew and the 1~ms
-clock drift tolerance, each mobile node calculates its compensation interval.
-
-Fig.~\ref{fig:compensation} shows the clock drift between each mobile node
-and the static node with clock drift compensation. We can see that in one
-compensation interval the clock drift becomes larger and the clock drift
-will be revised with compensation. Ideally, with periodic compensation, the
-mobile nodes can keep slot index synchronization with the static node.
-However, it is difficult to achieve perfect slot index synchronization in
-practice due to measurement errors including clock skew estimation error,
-compensation error and the dynamic varrations of oscillator frequency.
-However, with our proposed clock drift compensation method, the slot index
-synchronization can be extended to 2.3~hours, 5.25~hours and 6.15~hours compared to the
-initial 0.77~hour, 1.15~hours and 1.75~hours without compensation for the
-3 mobiles respectively.
 
 \subsection{Latency Reduction in Mock-up Scenario}
 \begin{figure}[t]
@@ -1195,16 +1193,17 @@ Based on the entering time recorded on listening nodes and the discovered
 time recorded on the mobile nodes, the corresponding discovery latency
 can be computed offline.
 
-We adopted the state-of-the-art Searchlight with 1\% duty cycle and 
+We adopted the state-of-the-art Searchlight-S with 1\% duty cycle and 
 5~ms slot size. The experiments last three continuous days and there
 are totally 271 discovery records with 32 volunteers invited. For 
 comparison, the volunteers carry listening nodes and mobile nodes 
 running with and without MASS following the same moving pattern.
 
 Fig.~\ref{fig:latency-reduction} shows the cumulative distribution of the
-discovery latency in the mock-up scenario. We can see that with MASS the
-discovery latency can be greatly reduced and the results is in accordance
-with the simulation results.
+discovery latency in the mock-up scenario compared with the simulation results
+based on our custom simulator. We can see that with MASS the discovery latency 
+can be greatly reduced. The average discovery latency can be reduced from 28~s
+to 17~s and in 40\% cases the discovery latency is smaller than 1~s.
 
 Fig.~\ref{fig:mock-day1} shows the reference selection process of the 
 traces on the first day. We can see that after 50~minutes all the 9
