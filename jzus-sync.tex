@@ -972,34 +972,24 @@ latency for deterministic protocols, the improvements with DCS are
 marginal. This is because DCS is not able to converge sufficiently
 fast in our scenario. For MASS, the discovery latency for the same
 protocols was reduced to less than one second about 75\% of the time,
-which suggests that most of the nodes were successfully
-synchronized. 
-
-\begin{figure}[t]
-   \centering
-   \includegraphics[scale=0.9]{graphs/reference_selection/515}
-   \caption{Convergence of reference nodes for the first day} 
-   \label{fig:converge-515}
-\end{figure}
-
+which suggests that most of the nodes were successfully synchronized. 
 However, even with MASS, the worst-case latency remained the same.
-The reason is either some nodes could not be synchronized such as
-cave 12 and 29, or they had to be re-synchronized at the start of 
-each day. Fig.~\ref{fig:converge-515} shows the convergence speed
-for MASS where a dot on the graph indicates that the static node
-has not synchronized with the reference node. We can see that with
-tourists visiting the static nodes gradually synchronize with the
-static nodes deployed in cave 100 while cave 12 and 29 can not be
-synchronized. The reason is that cave 12 and 29 are usually the 
-first caves visited.
+The reason is either some nodes could not be synchronized or they had 
+to be re-synchronized at the start of each day. For example, the cave
+12 and cave 29 at Mogao grottoes are usually the first cave visited
+which means that the mobile nodes can not relay synchronization 
+information to them. Thus, the static nodes in these two caves can
+not synchronize with the selected reference node.
 
 The reduction in discovery latency is important for our tourist
-tracking application because our goal is to accurately track the
-duration of stay for tourists in each cave. The median time that
-visitors spend in each cave is 250\,s. Detecting the visitors with a
-25\,s delay (at 1\% duty cycle) results in an error of 10\%. By
-reducing the discovery latency to less than 1\,s, we can improve the
-estimation accuracy by more than 20 times.
+tracking application because our goal is to learn the relationship
+between the number of tourists and the changes of micro-climate such
+as the tempperature, humidiy and carbon dioxide in the caves. It is
+essential to accurately track the duration of stay for tourists in 
+each cave. The median time that visitors spend in each cave is 250\,s. 
+Detecting the visitors with a 25\,s delay (at 1\% duty cycle) results 
+in an error of 10\%. By reducing the discovery latency to less than 
+1\,s, we can improve the estimation accuracy by more than 20 times.
 
 \subsection{Performance gains using MASS}
 
@@ -1109,15 +1099,14 @@ MASS in docking applications.
 
 \section{Experiments in a Mock-up Scenario}
 \label{sec:mock-up}
-We now describe our implementation and practical considerations of the
-proposed MASS in a mock-up scenario. We have proved in the simulation 
-experiment that with MASS, the discovery latency of existing neighbor 
-discovery protocols can be greatly improved. However, it is not clear 
-how it will perform on a real sensor network. It is difficult and 
-unrealistic to do such experiments at Mogao Grottoes, since the current 
-tourists tracking system is running and a sudden break is not allowed.
-Thus we design a similar scenario to verify the performance of the 
-proposed MASS.
+We have shown that the discovery latency of existing neighbor discovery
+protocols can be greatly improved with MASS. However, it is not clear 
+how MASS will perform on a real sensor network. It is difficult and
+unrealistic to thoroughly investigate its performance at Mogao Grottoes
+since the current tourists tracking system is running and a sudden break
+is not allowed. Thus, we mock up a similar scenario to evaluate the 
+performance of the proposed MASS. We now describe our implementation and
+practical considerations in the mock-up scenario.
 
 \subsection{Hardware Platform}
 \begin{figure}[t]
@@ -1135,38 +1124,61 @@ AT86RF212 operating at 700/800/900 MHz with the transmission rate from
 20 to 250~kbps. An important feature of sensor nodes is the low power 
 property, with the working and sleeping current 30 mA and 1.2 $\mu$A 
 respectively. A rechargeable 3.7V Li-Polymer battery is used to power 
-the sensor node.
+the sensor node. The sensor nodes do not run any sensor operating systems
+and are programmed directly in C. This is an advantage for our evaluation 
+since it has been shown that sensor operating systems such as TinyOS often
+introduce additional jitters~\citep{zhang2012acc} when the slot size is small.
 
-\subsection{Heterogeneous Working Pattern}
-
-Existing neighbor discovery protocols generally adopt a beacon-listen-beacon 
-working pattern in active slots. This arrangement seems logical since it enables 
-a pair of nodes to hear each other's beacon and achieve mutual discovery when 
-their active slots overlap. However, with MASS, such working pattern will cause 
-beaconing collision since the mobile node will perform slot index synchronization 
-and slot alignment with the discovered static node. Thus, in our implementation, 
-we adopt heterogeneous working pattern for static nodes and mobile nodes, 
-i.e., the static nodes adopt the beacon-listen-beacon pattern while the 
-mobile nodes adopt listen-beacon pattern. In other words, the mobile node
-keeps listening in active slots and sends a beacon if it discovered a static
-node.
-
-\subsection{Latency Reduction in Mock-up Scenario}
+\subsection{Mock-up Scenario and Setup}
 \begin{figure}[t]
    \centering
-   \includegraphics[width=.9\columnwidth]{static/mockup-trace}
-   \caption{Moving pattern in the mock-up scenario}
+   \includegraphics[width=.9\columnwidth]{static/route-1}
+   \caption{Moving traces of 16 volunteers in the mock-up scenario over one day}
    \label{fig:mockup}
 \end{figure}
 
+{\bf Mock-up Scenario}. The mock-up scenario is designed on the third floor of a
+building. Ten rooms are selected and in each room we deployed a static node. To 
+simulate the radio signal blocking phenomenon between the caves at Mogao Grottoes, 
+the signal transmitting power of static sensor nodes is reduced so that the mobile 
+node can hear the beacons only when it enters the room. Then we invite volunteers 
+to move through rooms with mobile nodes based on the predefined traces. The traces 
+are randomly produced based on the statistics of the real trace in one month at 
+Mogao Grottoes including the visiting sequence and the staying time distribution in 
+each cave. Fig.~\ref{fig:mockup} shows the produced moving trace over one day. The 
+numbe on the arrows indicates the number of volunteers moving and the shaded cave 
+indicate the reference nodes elected by the end of the day.
 
-\begin{figure}[t]
-   \centering
-   \includegraphics{graphs/latency-mockup/latency-reduction}
-   \caption{Discovery latency reduction in mock-up scenario at 1\% duty cycle and 5 ms slot size.}
-   \label{fig:latency-reduction}
-\end{figure}
+{\bf Heterogeneous Working Pattern}. Existing neighbor discovery protocols generally 
+adopt a beacon-listen-beacon working pattern in active slots. This arrangement seems 
+logical since it enables a pair of nodes to hear each other's beacon and achieve 
+mutual discovery when their active slots overlap. However, such working pattern is
+not the optimal in our tracking application. It has been shown that when the slot
+is aligned there will be beaconing collision when the active slots overlap which will
+increase the discovery latency. To avoid beaconing collision with MASS, we adopt 
+heterogeneous working patter for the static node and mobile node, i.e., the static 
+node adopt the typical beacon-listen-beacon pattern while the mobile node firstly keeps 
+listening in active slots and sends beacons if it receives the beacons from static nodes.
+In this case, the discovery will happen once the active slots of two neighbors overlap.
 
+{\bf Experimental Setup}. We adopted the state-of-the-art Searchlight-S with 1\% duty 
+cycle and 5~ms slot size. Each beacon contains a 24-byte payload which includes 
+necessary information for discovery such as the node ID, slot index, time counters and
+priority changes. The total length of the underlying physical message is 41 bytes (4~B 
+of preamble + 1~B of SFD + 1~B of PHR + 9~B of MHR + 24~B of MAC payload + 2~B of FCS).
+With the data rage of 250~kbit/s, it will take nearly 1.5~ms to transmit one beacon.
+The experiments last for three days and there are totally 271 discovery records with 
+32 volunteers invited.
+
+To obtain the discovery latency in the mock-up scenario, i.e., the time interval from
+mobile nodes coming into the communication range of static nodes (entering time) to the
+time they discovered each other, we design another kind of nodes called listening nodes.
+The listening node works together with the mobile nodes to record the entering time which
+is the time when it receives the first beacon from each static node. Together with the
+discovered time recorded on the mobile nodes, the corresponding discovery latency can be
+computed offline.
+
+\subsection{Convergence of Reference Selection}
 \begin{figure}[t]
    \centering
    \includegraphics[width=.9\columnwidth]{graphs/visiting_frequency/final-priority}
@@ -1181,42 +1193,52 @@ node.
    \label{fig:mock-day1}
 \end{figure}
 
+The performance gains of MASS greatly depend on the convergence speed of the reference
+selection, i.e., the speed of slot index synchronization. The ideal case is that all the
+static nodes can keep slot index synchronization with each other with mobile nodes moving.
+However, the convergence speed of reference selection is determined by the moving pattern
+of mobile nodes and the priority metric adopted. And the priority metric may be different
+in various docking applications.
 
-To simulate the tourists tracking system at Mogao Grottoes, we conduct
-the experiments on the third floor of a building. We used 10 rooms to 
-simulate 10 caves and put one static node in each room. Then we invite 
-volunteers to carry mobile nodes moving through different rooms based 
-on a predefined moving pattern. The moving pattern (as shown in Fig.~\ref{fig:mockup}) 
-is randomly produced following the moving pattern at Mogao Grottoes 
-including the sequence of rooms and the staying time in each room. 
+In this section, we examine the convergence speed of MASS based on the priority metric we
+get from the real traces obtained from Mogao Grottoes, i.e., the average inter-arrival time
+accumulated using an exponentially-weighted moving average (EWMA) with a smoothing factor 
+$\alpha = \frac{1}{8}$. Fig.~\ref{fig:mock-priority} shows the priority of each static node
+at the end of one day. We can see that the ten static nodes have different average 
+inter-arrival time which reflects the moving pattern of mobile nodes. Note that the smaller
+value means a higher priority.
 
-To compute the discovery latency, i.e., the time interval from mobile
-nodes coming into the communication range of static nodes (entering
-time) to the time they discovered each other, we design an additional 
-kind of nodes called listening nodes. Listening nodes works together 
-with the mobile nodes and record the entering time, i.e., the time
-information contained in the first beacon received from static nodes.
-Based on the entering time recorded on listening nodes and the discovered
-time recorded on the mobile nodes, the corresponding discovery latency
-can be computed offline.
+Fig.~\ref{fig:mock-day1} shows the convergence speed of reference selection with the priority
+metric where a dot on the graph indicates that the corresponding static node has not finished
+slot index synchronization with any other static node. We can see that the nine static nodes
+gradually synchronize with static node S10 with mobile node moving since static node S10 has
+the highest priority (smallest average inter-arrival time). It shows that the proposed reference
+selection algorithm can work well in the mock-up scenario.
 
-We adopted the state-of-the-art Searchlight-S with 1\% duty cycle and 
-5~ms slot size. The experiments last three continuous days and there
-are totally 271 discovery records with 32 volunteers invited. For 
-comparison, the volunteers carry listening nodes and mobile nodes 
-running with and without MASS following the same moving pattern.
+\subsection{Latency Reduction in Mock-up Scenario}
 
-Fig.~\ref{fig:latency-reduction} shows the cumulative distribution of the
-discovery latency in the mock-up scenario compared with the simulation results
-based on our custom simulator. We can see that with MASS the discovery latency 
-can be greatly reduced. The average discovery latency can be reduced from 28~s
-to 17~s and in 40\% cases the discovery latency is smaller than 1~s.
+\begin{figure}[t]
+   \centering
+   \includegraphics{graphs/latency-mockup/latency-reduction}
+   \caption{Discovery latency reduction in mock-up scenario at 1\% duty cycle and 5 ms slot size.}
+   \label{fig:latency-reduction}
+\end{figure}
 
-Fig.~\ref{fig:mock-day1} shows the reference selection process of the 
-traces on the first day. We can see that after 50~minutes all the 9
-static nodes can keep slot index synchronization with the node S10.
-Fig.~\ref{fig:mock-priority} shows the priority of the ten static nodes.
+In this section, we investigate how much gains can be obtained in discovery latency reduction with
+MASS. As comparison, we run the experiments with and without MASS. Firstly, we make the volunteers
+carry listening nodes and mobile nodes without MASS and then with MASS following the same randomly
+produced traces. We also run the simulator with the same traces for comparison.
 
+Fig.~\ref{fig:latency-reduction} shows the cumulative distribution of the discovery latency in the
+mock-up scenario compared with the simulation results. Two observations can be obtained from the
+results. The first is that MASS can reduce the discovery latency in the mock-up scenario. Discovery
+latency can be reduced to 1~s in 45\% cases. The second observation is that there is a performance
+gap between the simualtion result and the result in the practical mock-up scenario. The gap may be
+caused by the accuracy of clock skew estimation and clock drift compensation which may break the
+slot index synchronization. In practice, the clock skew may change with the environment such as the 
+temperature. And the clock drift error will be accumulated if the synchronization can not be updated 
+frequently. Thus, it remains the future work to investigate how to improve the synchronization accuracy 
+in the real large scale sensor networks.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -1228,12 +1250,12 @@ mobility pattern of the mobile nodes in \emph{docking} applications,
 we developed MASS, a reference-based slot index synchronization
 technique, that can improve the average discovery latency, while
 keeping the energy consumption constant.  We showed with simulations
-based on real traces, that MASS can improve the average discovery
-latency by up to 2 orders of magnitude. Our work represents a
-preliminary investigation into improving existing deterministic
-neighbor discovery protocols by introducing slot index
+based on real traces and experiments in a mock-up scenario, that MASS 
+can improve the average discovery latency by up to 2 orders of magnitude. 
+Our work represents a preliminary investigation into improving existing 
+deterministic neighbor discovery protocols by introducing slot index
 synchronization. It remains as future work to thoroughly investigate
-how MASS will perform on real sensor networks.
+how MASS will perform on real large scale sensor networks.
 
 
 
