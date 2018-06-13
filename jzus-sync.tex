@@ -678,7 +678,7 @@ the expected clock drift during this interval is within one slot
 \begin{figure}[t]
    \centering
    \includegraphics{graphs/clock-compensation-result/compensate-effect}
-   \caption{Clock drift changes with dynamic compensation interval for three mobile nodes.}
+   \caption{Clock drift changes with dynamic compensation interval for two mobile nodes.}
    \label{fig:compensation}
 \end{figure}
 
@@ -700,13 +700,13 @@ measurement on our hardware, it is effective to set the clock drift tolerance
 1~ms.
 
 We validate such dynamic compensation interval with the neighbor discovery
-protocol. We choose four nodes where one node works as the static node while 
-the other three as the mobile nodes. These four nodes run the Searchlight 
+protocol. We choose three nodes where one node works as the static node while 
+the other two as the mobile nodes. These three nodes run the Searchlight 
 protocol with 5\% duty cycle and 5~ms slot size. Mobile nodes do slot index 
 synchronization with the static node after the first discovery. After 120~s, 
 the three mobile nodes estimate the relative clock skew with the static node. 
 Then each mobile node compute its compensation interval and do clock drift
-after the interval.
+compensation periodically.
 
 We compute the wake up time drift after each discovery period and plot the
 results in Fig.~\ref{fig:compensation}. We can see that in the compensation 
@@ -715,10 +715,10 @@ Ideally, with periodic compensation, the mobile nodes can keep slot index
 synchronization with the static node. However, it is difficult to achieve 
 perfect slot index synchronization in practice due to measurement errors 
 including clock skew estimation error, compensation error and the dynamic 
-varrations of oscillator frequency. However, with our proposed clock drift 
-compensation method, the slot index synchronization can be extended to 2.3~hours, 
-5.25~hours and 6.15~hours compared to the initial 0.77~hour, 1.15~hours and 
-1.75~hours without compensation for the three mobiles respectively.
+variations of oscillator frequency. However, with our proposed clock drift 
+compensation method, the slot index synchronization can be extended to 
+5.25~hours and 6.15~hours compared to the initial 1.15~hours and 1.75~hours 
+without compensation for the two mobiles respectively.
 
 {\bf Slot Alignment} While it is possible for the nodes to align their
 slot timing to the reference node, we found that the resulting
