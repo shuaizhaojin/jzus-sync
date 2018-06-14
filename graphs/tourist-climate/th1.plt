@@ -9,7 +9,10 @@ set size 0.6,1
 set ytics font 'Helvetica,10'
 set xtics nomirror
 set ytics nomirror
+set y2tics
+set y2label "Number of Tourists"
 
-plot "./th1-final.dat" u ($1*60):3 not w l ls 1
+plot "./th1-final.dat" u ($1*60):3 not w l ls 1,\
+"./tourists.dat" u ($1*60):3 axes x1y2 w boxes fs pattern 3 lc rgb "purple" title "Number of Tourists"
 
 
