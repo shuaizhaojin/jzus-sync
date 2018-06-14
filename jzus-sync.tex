@@ -256,10 +256,6 @@ synchronization algorithms are not feasible for our application.
        \centering
        \includegraphics[width=\columnwidth]{graphs/tourist-climate/co2}
    \end{subfigure}
-%   \begin{subfigure}
-%       \centering
-%       \includegraphics[scale=0.55]{graphs/tourist-climate/tourists}
-%   \end{subfigure}
   \caption{The number of tourists and microclimate changes in cave 332 at Mogao Grottoes.} 
   \label{fig:microclimate}
 \end{figure}
@@ -617,7 +613,6 @@ applicable if a good metric can be found.
 
 \subsection{Clock Drift Compensation \& Slot Synchronization}
 \label{sec:clock-drift}
-
 \begin{figure*}[t]
    \centering
    \subfigure[Mean and variance of clock skew measured at one node using different
@@ -648,7 +643,6 @@ applicable if a good metric can be found.
    \caption{Clock skew of the three receiving nodes.}
    \label{fig:skew}
 \end{figure*}
-
 
 Once a reference node is elected, each node will synchronize their
 clocks to that reference node. However, clock drift will introduce
@@ -700,13 +694,6 @@ cave is less than 18 minutes (see Fig.~\ref{fig:visitingfrequency}),
 the expected clock drift during this interval is within one slot
 (5\,ms) with clock drift compensation.
 
-\begin{figure}[t]
-   \centering
-   \includegraphics{graphs/clock-compensation-result/compensate-effect}
-   \caption{Clock drift changes with dynamic compensation interval for two mobile nodes.}
-   \label{fig:compensation}
-\end{figure}
-
 {\bf Clock Drift Compensation.} Once we have an estimate of the clock
 skew, sensor nodes can compensate for its clock drift against the
 reference node by adjusting its clock periodically. Due to the
@@ -732,6 +719,13 @@ synchronization with the static node after the first discovery. After 120~s,
 the three mobile nodes estimate the relative clock skew with the static node. 
 Then each mobile node compute its compensation interval and do clock drift
 compensation periodically.
+
+\begin{figure}[t]
+   \centering
+   \includegraphics{graphs/clock-compensation-result/compensate-effect}
+   \caption{Clock drift changes with dynamic compensation interval for two mobile nodes.}
+   \label{fig:compensation}
+\end{figure}
 
 We compute the wake up time drift after each discovery period and plot the
 results in Fig.~\ref{fig:compensation}. We can see that in the compensation 
