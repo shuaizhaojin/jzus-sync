@@ -1151,22 +1151,38 @@ introduce additional jitters~\citep{zhang2012acc} when the slot size is small.
 \subsection{Mock-up Scenario and Setup}
 \begin{figure}[t]
    \centering
+   \includegraphics[width=.9\columnwidth]{static/mockupscenario}
+   \caption{Mock-up scenario}
+   \label{fig:mockupsce}
+\end{figure}
+
+\begin{figure}[t]
+   \centering
    \includegraphics[width=.9\columnwidth]{static/route-1}
    \caption{Moving traces of 16 volunteers in the mock-up scenario over one day}
    \label{fig:mockup}
 \end{figure}
 
 {\bf Mock-up Scenario}. The mock-up scenario is designed on the third floor of a
-building. Ten rooms are selected and in each room we deployed a static node. To 
-simulate the radio signal blocking phenomenon between the caves at Mogao Grottoes, 
-the signal transmitting power of static sensor nodes is reduced so that the mobile 
-node can hear the beacons only when it enters the room. Then we invite volunteers 
-to move through rooms with mobile nodes based on the predefined traces. The traces 
-are randomly produced based on the statistics of the real trace in one month at 
-Mogao Grottoes including the visiting sequence and the staying time distribution in 
-each cave. Fig.~\ref{fig:mockup} shows the produced moving trace over one day. The 
-numbe on the arrows indicates the number of volunteers moving and the shaded cave 
-indicate the reference nodes elected by the end of the day.
+building as shown in Fig.~\ref{fig:mockupsce}. Ten rooms are selected and in each 
+room we deployed a static node. To simulate the radio signal blocking phenomenon 
+between the caves at Mogao Grottoes, the signal transmitting power of static sensor 
+nodes is reduced so that the mobile node can hear the beacons only when it enters 
+the room. Then we invite volunteers carrying mobile nodes to move through rooms. 
+To obtain the discovery latency, i.e., the time interval from mobile nodes coming 
+into the communication range of static nodes (entering time) to the time they 
+discovered each other, we design another kind of nodes called listening nodes. The
+listeing node works together with the mobile nodes to record the entering time which
+is the time when it receives the first beacon from the static node. Together with
+the discovered time recorded on the mobile nodes, the corresponding discovery latency
+can be computed offline.
+
+To simulate the visiting pattern of tourists at Mogao Grottoes, we randomly produced
+the predefined traces for the volunteers based on the statistics of the real traces 
+in one month at Mogao Grottoes including the visiting sequence and the staying time 
+distribution in each cave. Fig.~\ref{fig:mockup} shows the produced moving trace over 
+one day. The numbe on the arrows indicates the number of volunteers moving in and out
+of each room.
 
 {\bf Heterogeneous Working Pattern}. Existing neighbor discovery protocols generally 
 adopt a beacon-listen-beacon working pattern in active slots. This arrangement seems 
@@ -1188,14 +1204,6 @@ of preamble + 1~B of SFD + 1~B of PHR + 9~B of MHR + 24~B of MAC payload + 2~B o
 With the data rage of 250~kbit/s, it will take nearly 1.5~ms to transmit one beacon.
 The experiments last for three days and there are totally 271 discovery records with 
 32 volunteers invited.
-
-To obtain the discovery latency in the mock-up scenario, i.e., the time interval from
-mobile nodes coming into the communication range of static nodes (entering time) to the
-time they discovered each other, we design another kind of nodes called listening nodes.
-The listening node works together with the mobile nodes to record the entering time which
-is the time when it receives the first beacon from each static node. Together with the
-discovered time recorded on the mobile nodes, the corresponding discovery latency can be
-computed offline.
 
 \subsection{Convergence of Reference Selection}
 \begin{figure}[t]
