@@ -1184,18 +1184,18 @@ the corresponding discovery latency can be computed offline.
   \caption{Randomly produced moving trace.}
   \label{tab:movingtrace}
   \resizebox{\columnwidth}{!}{
-  \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}\hline
-	  Node & S1 & S2 & S3 & S4 & S5 & S6 & S7 & S8 & S9 & S10 \\ \hline
-	  S1   & 0  & 8  & 2  & 2  & 2  & 2  & 4  & 5  & 2  & 0   \\ \hline
-	  S2   & 5  & 0  & 3  & 4  & 3  & 3  & 2  & 7  & 3  & 0   \\ \hline
-	  S3   & 5  & 3  & 0  & 2  & 3  & 5  & 0  & 3  & 2  & 4   \\ \hline
-	  S4   & 4  & 4  & 4  & 0  & 3  & 1  & 2  & 4  & 4  & 4   \\ \hline
-	  S5   & 2  & 2  & 2  & 3  & 0  & 4  & 2  & 5  & 2  & 3   \\ \hline
-	  S6   & 1  & 3  & 6  & 5  & 2  & 0  & 3  & 4  & 4  & 2   \\ \hline
-	  S7   & 2  & 2  & 1  & 2  & 2  & 3  & 0  & 7  & 4  & 2   \\ \hline
-	  S8   & 2  & 3  & 2  & 2  & 8  & 5  & 2  & 0  & 2  & 2   \\ \hline
-	  S9   & 2  & 4  & 4  & 5  & 1  & 4  & 3  & 2  & 0  & 2   \\ \hline
-	  S10  & 1  & 2  & 1  & 3  & 2  & 2  & 3  & 5  & 3  & 0   \\ \hline
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}\hline
+      Node & $S_1$ & $S_2$ & $S_3$ & $S_4$ & $S_5$ & $S_6$ & $S_7$ & $S_8$ & $S_9$ & $S_{10}$ \\ \hline
+	  $S_1$   & 0  & 8  & 2  & 2  & 2  & 2  & 4  & 5  & 2  & 0   \\ \hline
+	  $S_2$   & 5  & 0  & 3  & 4  & 3  & 3  & 2  & 7  & 3  & 0   \\ \hline
+	  $S_3$   & 5  & 3  & 0  & 2  & 3  & 5  & 0  & 3  & 2  & 4   \\ \hline
+	  $S_4$   & 4  & 4  & 4  & 0  & 3  & 1  & 2  & 4  & 4  & 4   \\ \hline
+	  $S_5$   & 2  & 2  & 2  & 3  & 0  & 4  & 2  & 5  & 2  & 3   \\ \hline
+	  $S_6$   & 1  & 3  & 6  & 5  & 2  & 0  & 3  & 4  & 4  & 2   \\ \hline
+	  $S_7$   & 2  & 2  & 1  & 2  & 2  & 3  & 0  & 7  & 4  & 2   \\ \hline
+	  $S_8$   & 2  & 3  & 2  & 2  & 8  & 5  & 2  & 0  & 2  & 2   \\ \hline
+	  $S_9$   & 2  & 4  & 4  & 5  & 1  & 4  & 3  & 2  & 0  & 2   \\ \hline
+      $S_{10}$  & 1  & 2  & 1  & 3  & 2  & 2  & 3  & 5  & 3  & 0   \\ \hline
   \end{tabular}}
   %\figurespace
 \end{table}
@@ -1205,7 +1205,10 @@ To simulate the visiting pattern of tourists at Mogao Grottoes, we randomly prod
 the predefined traces for the volunteers based on the statistics of the real trace in 
 one month at Mogao Grottoes including the visiting sequence and the staying time 
 distribution in each cave. Table~\ref{tab:movingtrace} shows the produced moving trace 
-of three days. \todo{describe this table.} 
+of three days. For an element at row $S_X$ and column $S_Y$, the value refers to the
+number of times when mobile nodes travel from room $S_X$ to room $S_Y$.
+For example, $[S_2, S_3] = 3$ means that mobile nodes have traveled from room $S_2$
+to room $S_3$ for 3 times totally in the trace.
 
 %{\bf Heterogeneous Working Pattern}. Existing neighbor discovery protocols generally 
 %adopt a beacon-listen-beacon working pattern in active slots. This arrangement seems 
