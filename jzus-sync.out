@@ -1,6 +1,6 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Related Work}{}% 2
-\BOOKMARK [1][-]{section.3}{A Case for Slot Index Synchronization}{}% 3
+\BOOKMARK [1][-]{section.3}{Case for Slot Index Synchronization}{}% 3
 \BOOKMARK [2][-]{subsection.3.1}{Tourist Tracking in Historical Sites}{section.3}% 4
 \BOOKMARK [2][-]{subsection.3.2}{Slot Index Synchronization}{section.3}% 5
 \BOOKMARK [2][-]{subsection.3.3}{Distributed Synchronization Not Feasible}{section.3}% 6
@@ -13,9 +13,7 @@
 \BOOKMARK [2][-]{subsection.5.2}{Performance gains using MASS}{section.5}% 13
 \BOOKMARK [2][-]{subsection.5.3}{Effectiveness of Clock Skew Compensation}{section.5}% 14
 \BOOKMARK [2][-]{subsection.5.4}{Random Traces}{section.5}% 15
-\BOOKMARK [1][-]{section.6}{Experiments in a Mock-up Scenario}{}% 16
-\BOOKMARK [2][-]{subsection.6.1}{Hardware Platform}{section.6}% 17
-\BOOKMARK [2][-]{subsection.6.2}{Mock-up Scenario and Setup}{section.6}% 18
-\BOOKMARK [2][-]{subsection.6.3}{Convergence of Reference Selection}{section.6}% 19
-\BOOKMARK [2][-]{subsection.6.4}{Latency Reduction in Mock-up Scenario}{section.6}% 20
-\BOOKMARK [1][-]{section.7}{Conclusion}{}% 21
+\BOOKMARK [2][-]{subsection.5.5}{Experiments with Real Sensor Hardware}{section.5}% 16
+\BOOKMARK [3][-]{subsubsection.5.5.1}{Convergence of Reference Selection}{subsection.5.5}% 17
+\BOOKMARK [3][-]{subsubsection.5.5.2}{Latency Reduction}{subsection.5.5}% 18
+\BOOKMARK [1][-]{section.6}{Conclusion}{}% 19
