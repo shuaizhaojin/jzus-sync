@@ -70,7 +70,7 @@ deployed at Mogao Grottoes, a famous cultural heritage site in China. We show th
 discovery latency of state-of-the-art deterministic neighbor discovery protocols by up to 2 orders of magnitude.
 }
 % separate by semicolons 
-\keywords{Neighbor discovery; Docking applications, Slot index synchronization; MASS}
+\keywords{Neighbor discovery; Docking applications; Slot index synchronization; MASS}
 
 
 \doi{10.1631/FITEE.1000000}	% DOI of the paper, should be accurate
@@ -106,15 +106,14 @@ The availability of cheap wireless sensor nodes has made \emph{docking} applicat
 feasible for widespread deployment. In docking applications, there are two sets of sensor nodes: static and mobile
 nodes. Static nodes are placed at fixed rendezvous points and mobile nodes are attached to moving objects of interest.
 Some examples of docking applications include the uploading of cargo transit history~\citep{malinowski2007cargonet}, 
-cattle movement tracking during feeding times~\citep{wark2007model}, hikers tracking via their encounters 
-with trail-sid waypoints~\citep{huang2005cenwits} and tourist tracking, which tracks tourists at a cultural heritage 
-site~\citep{ming2008wireless}.
+cattle movement tracking during feeding times~\citep{wark2007model}, hikers tracking via their encounters with trail-side 
+waypoints~\citep{huang2005cenwits} and tourists tracking, which tracks tourists at a cultural heritage site~\citep{ming2008wireless}.
 
 For the conservation work in Mogao Grottoes, a famous cultural heritage site in China, it is essential to track and 
 study how the movement of tourists around the caves affects the microclimate in caves since the microclimate changes
 can cause deterioration to the historical artwork such as the paints and sculptures in caves. The current tracking 
 system in place consists of static nodes placed in the caves and mobile nodes carried by the tour guides. The static 
-nodes emit beacons periodically which are picked up by the mobile nodes. For each tour group that enters a cave, not 
+nodes emit beacons periodically which are picked up by the mobile nodes for each tour group that enters a cave. Not 
 only is the detection of the tour group important, it is also essential to accurately measure the duration of stay 
 within each cave. In addition, power is also a constraint for the tracking system as modern infrastructure is not 
 allowed to be installed in the caves to supply power to the static nodes.
@@ -1178,6 +1177,13 @@ to record the entering time which is the time when it receives the first beacon
 from each static node. Together with the discovered time recorded on the mobile nodes,
 the corresponding discovery latency can be computed offline.
 
+{\bf Experimental Setup}. We adopted the state-of-the-art Searchlight-S with 1\% duty 
+cycle and 5~ms slot size. Each beacon contains a 24-byte payload which includes 
+necessary information for discovery such as the node ID, slot index, time counters and
+priority changes. The total length of the underlying physical message is 41 bytes (4~B 
+of preamble + 1~B of SFD + 1~B of PHR + 9~B of MHR + 24~B of MAC payload + 2~B of FCS).
+With the data rage of 250~kbit/s, it will take nearly 1.5~ms to transmit one beacon.
+
 \begin{table}[t]
   \centering
   \footnotesize
@@ -1200,36 +1206,15 @@ the corresponding discovery latency can be computed offline.
   %\figurespace
 \end{table}
 
-
 To simulate the visiting pattern of tourists at Mogao Grottoes, we randomly produced
 the predefined traces for the volunteers based on the statistics of the real trace in 
 one month at Mogao Grottoes including the visiting sequence and the staying time 
-distribution in each cave. Table~\ref{tab:movingtrace} shows the produced moving trace 
-of three days. For an element at row $S_X$ and column $S_Y$, the value refers to the
-number of times when mobile nodes travel from room $S_X$ to room $S_Y$.
-For example, $[S_2, S_3] = 3$ means that mobile nodes have traveled from room $S_2$
-to room $S_3$ for 3 times totally in the trace.
-
-%{\bf Heterogeneous Working Pattern}. Existing neighbor discovery protocols generally 
-%adopt a beacon-listen-beacon working pattern in active slots. This arrangement seems 
-%logical since it enables a pair of nodes to hear each other's beacon and achieve 
-%mutual discovery when their active slots overlap. However, such working pattern is
-%not the optimal in our tracking application. It has been shown that when the slot
-%is aligned there will be beaconing collision when the active slots overlap which will
-%increase the discovery latency. To avoid beaconing collision with MASS, we adopted 
-%heterogeneous working patterns for the static node and mobile node, i.e., the static 
-%node adopt the typical beacon-listen-beacon pattern while the mobile node firstly keeps 
-%listening in active slots and sends beacons if it receives the beacons from static nodes.
-%In this case, the discovery will happen once the active slots of two neighbors overlap.
-
-{\bf Experimental Setup}. We adopted the state-of-the-art Searchlight-S with 1\% duty 
-cycle and 5~ms slot size. Each beacon contains a 24-byte payload which includes 
-necessary information for discovery such as the node ID, slot index, time counters and
-priority changes. The total length of the underlying physical message is 41 bytes (4~B 
-of preamble + 1~B of SFD + 1~B of PHR + 9~B of MHR + 24~B of MAC payload + 2~B of FCS).
-With the data rage of 250~kbit/s, it will take nearly 1.5~ms to transmit one beacon.
-The experiments last for three days and there are totally 271 discovery records involving
-32 volunteers.
+distribution in each cave. The experiments last for three days and there are totally 
+271 discovery records involving 32 volunteers. Table~\ref{tab:movingtrace} shows the 
+statistics of the randomly produced moving traces of three days. For an element at 
+row $S_X$ and column $S_Y$, the value refers to the number of times when mobile nodes 
+travel from room $S_X$ to room $S_Y$. For example, $[S_2, S_3] = 3$ means that mobile 
+nodes have traveled from room $S_2$ to room $S_3$ for 3 times totally in the trace.
 
 \subsubsection{Convergence of Reference Selection}
 
